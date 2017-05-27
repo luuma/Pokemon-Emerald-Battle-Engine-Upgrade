@@ -2417,6 +2417,7 @@ void in_battle_form_change(u8 bank, bool change_hp, bool change_type)
         battle_poke->max_hp = get_attributes(poke, ATTR_TOTAL_HP, 0);
         battle_poke->current_hp = battle_poke->max_hp - hp_diff;
         set_attributes(poke, ATTR_CURRENT_HP, &(battle_poke->current_hp));
+        calculate_stats_pokekmon(poke);
         update_hpbar(bank);
     }
 

@@ -2544,12 +2544,20 @@ void revert_form_change(bool mega_revert, u8 teamID, u8 side, struct pokemon* po
     else
     {
         u16 species = get_attributes(poke, ATTR_SPECIES, 0);
-        if(species == POKE_ZYGARDE_100)
+        if(species == POKE_ZYGARDE_100 && (get_attributes(poke, ATTR_CURRENT_HP, 0) || battle_outcome))
         {
             u16 base_species = POKE_ZYGARDE_10;
             if((side && (new_battlestruct->party_bit.is_base_z50_ai & bits_table[teamID])) ||
                 (!side && (new_battlestruct->party_bit.is_base_z50_user & bits_table[teamID])))
             {
+                if(side)
+                {
+                    new_battlestruct->party_bit.is_base_z50_ai=0;
+                }
+                else
+                {
+                    new_battlestruct->party_bit.is_base_z50_user=0;
+                }
                 base_species = POKE_ZYGARDE_50;
             }
             set_attributes(poke, ATTR_SPECIES, &base_species);
