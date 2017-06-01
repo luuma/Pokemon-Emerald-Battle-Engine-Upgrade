@@ -2028,7 +2028,7 @@ void atk77_set_protect_stuff(void)
                 new_battlestruct->bank_affecting[bank_attacker].baneful_bunker = 1;
                 break;
             case PR_mat_block:
-                if (new_battlestruct->side_affecting[atk_side].mat_block)
+                if (new_battlestruct->side_affecting[atk_side].mat_block || !disable_structs[bank_attacker].is_first_turn)
                     fail = 1;
                 else
                     new_battlestruct->side_affecting[atk_side].mat_block = 1;
