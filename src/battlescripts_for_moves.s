@@ -1172,7 +1172,12 @@ NEXTHITWILLHIT:
 	accuracycheck MOVE_FAILED 0xFFFF
 	attackstring
 	ppreduce
-	goto_cmd 0x082D961F
+	setalwayshitflag
+	attackanimation
+	waitanimation
+	printstring 0x89
+	waitmessage 0x40
+	goto_cmd ENDTURN
 
 BELLYDRUMLIKE:
 	attackcanceler

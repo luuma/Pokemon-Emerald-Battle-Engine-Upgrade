@@ -2236,7 +2236,7 @@ void atk93_ko_move(void)
 {
     u8 atk_lvl = battle_participants[bank_attacker].level;
     u8 def_lvl = battle_participants[bank_target].level;
-    u8 fail = 0;
+    bool fail = 0;
     if (atk_lvl < def_lvl)
     {
         fail = 1;
@@ -2244,7 +2244,7 @@ void atk93_ko_move(void)
     }
     else
     {
-        if (has_ability_effect(bank_target, 1) && battle_participants[bank_target].ability_id == ABILITY_STURDY)
+        if (check_ability(bank_target, ABILITY_STURDY))
         {
             move_outcome.missed = 1;
             battlescripts_curr_instruction = (void*) 0x082DB552;
@@ -2252,7 +2252,7 @@ void atk93_ko_move(void)
             return;
         }
         u8 accuracy = atk_lvl - def_lvl + move_table[current_move].accuracy;
-        if ((status3[bank_attacker].always_hits && disable_structs[bank_attacker].always_hits_bank == bank_target) || accuracy >= 100 || percent_chance(accuracy))
+        if ((MUST_HIT(bank_attacker, bank_target)) || accuracy >= 100 || percent_chance(accuracy))
         {
             damage_loc = battle_participants[bank_target].current_hp;
             move_outcome.super_effective = 0;
@@ -2269,6 +2269,13 @@ void atk93_ko_move(void)
         battlescripts_curr_instruction = (void*) read_word(battlescripts_curr_instruction + 1);
     else
         battlescripts_curr_instruction += 5;
+}
+
+void atkA7_set_alwayshits_flag(void)
+{
+    status3[bank_target].always_hits = 2;
+    disable_structs[bank_target].always_hits_bank = bank_attacker;
+    battlescripts_curr_instruction++;
 }
 
 void atkBE_rapidspin_away(void)
@@ -2538,7 +2545,7 @@ struct revert_form_struct
     u16 base_form;
 };
 
-void revert_form_change(bool mega_revert, u8 teamID, u8 side, struct pokemon* poke)
+void revert_form_change(bool mega_revert, u8 teamID, u8 side, const struct pokemon* poke)
 {
     if (mega_revert) {revert_mega_to_normalform(teamID, side);}
     else
@@ -2756,7 +2763,7 @@ bool move_effect_setter(bool primary, bool certain)
                 bits |= STAT_PRINTABILITY;
             if ((*move_effect & MOVEEFFECT_AFFECTSUSER))
                 bits |= STAT_SELFINFLICTED;
-            u8 ret = change_stats(bank, bits, bs_return);
+            u8 ret = change_stats(bank, bits, battlescripts_curr_instruction);
             if (ret == STAT_CHANGED)
             {
                 //stat was changed
@@ -2774,6 +2781,7 @@ bool move_effect_setter(bool primary, bool certain)
                     bs_push_current(ONE_STAT_PRINT);
                 }
             }
+            else if (ret == STAT_UNABLE) {effect = 1;}
         }
         else if ((*move_effect) & MOVEEFFECT_MULTIPLESTATS)
         {
@@ -3048,44 +3056,6 @@ void atk02_attackstring(void)
                 hitmarker |= HITMARKER_ATTACKSTRING_PRINTED;
             }
         }
-    }
-}
-
-void atkA7_KO_handler(void)
-{
-    if (check_ability(bank_target, ABILITY_STURDY))
-    {
-        move_outcome.missed = 1;
-        last_used_ability = ABILITY_STURDY;
-        record_usage_of_ability(bank_target, ABILITY_STURDY);
-        battlescripts_curr_instruction = (void*) (0x82DB552);
-    }
-    else
-    {
-        u8 fail = 0;
-        u8* string_chooser = &battle_communication_struct.multistring_chooser;
-        if (battle_participants[bank_target].level > battle_participants[bank_attacker].level) //lower level
-        {
-            move_outcome.missed = 1;
-            *string_chooser = 1;
-            fail = 1;
-        }
-        else if (!MUST_HIT(bank_attacker, bank_target) && __umodsi3(rng(), 100) + 1 > accuracy_percent(current_move, bank_attacker, bank_target)) //missed
-        {
-            move_outcome.missed = 1;
-            *string_chooser = 0;
-            fail = 1;
-        }
-        else //move hits
-        {
-            move_outcome.not_very_effective = 0;
-            move_outcome.super_effective = 0;
-            move_outcome.one_hit_ko = 1;
-            damage_loc = battle_participants[bank_target].current_hp;
-            battlescripts_curr_instruction += 5;
-        }
-        if (fail)
-            battlescripts_curr_instruction = (void*) (read_word(battlescripts_curr_instruction + 1));
     }
 }
 
@@ -3782,7 +3752,7 @@ const command bs_commands[] = {
     atkA4_encore_move,	//	 0xA4
     (void*) 0x8052A71,	//	 0xA5
     (void*) 0x8052B35,	//	 0xA6
-    atkA7_KO_handler,	//	 0xA7
+    atkA7_set_alwayshits_flag,	//	 0xA7
     (void*) 0x8052D8D,	//	 0xA8
     atkA9_sleeptalkmovechoose,	//	 0xA9
     (void*) 0x8053151,	//	 0xAA

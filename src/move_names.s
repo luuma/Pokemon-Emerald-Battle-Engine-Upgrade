@@ -374,7 +374,7 @@ move_names_table:
 .byte T_, a_, i_, l_, w_, i_, n_, d_, Termin, Space, Space, Space, Space
 .byte A_, c_, u_, p_, r_, e_, s_, s_, u_, r_, e_, Termin, Space
 .byte M_, e_, t_, a_, l_, Space, B_, u_, r_, s_, t_, Termin, Space
-.byte U_, Dash, T_, u_, r_, n_, Termin, Termin, Space, Space, Space, Space, Space
+.byte U_, Dash, t_, u_, r_, n_, Termin, Termin, Space, Space, Space, Space, Space
 .byte C_, l_, o_, s_, e_, Space, C_, o_, m_, b_, a_, t_, Termin
 .byte P_, a_, y_, b_, a_, c_, k_, Termin, Space, Space, Space, Space, Space
 .byte A_, s_, s_, u_, r_, a_, n_, c_, e_, Termin, Space, Space, Space
@@ -709,7 +709,7 @@ move_names_table:
 .byte M_, a_, x_, Space, E_, v_, o_, b_, o_, o_, s_, t_, Termin
 .byte G_, e_, n_, e_, s_, i_, s_, Space, N_, o_, v_, a_, Termin
 .byte S_, h_, e_, l_, l_, Space, T_, r_, a_, p_, Termin, Space, Space
-.byte F_, l_, e_, u_, r_, Space, B_, l_, a_, s_, t_, Termin, Space
+.byte F_, l_, e_, u_, r_, Space, C_, a_, n_, n_, o_, n_, Termin
 .byte P_, s_, y_, c_, h_, i_, c_, Space, F_, a_, n_, g_, Termin
 .byte S_, t_, o_, m_, p_, Space, R_, a_, g_, e_, Termin, Space, Space
 .byte S_, h_, a_, d_, o_, w_, Space, B_, o_, n_, e_, Termin, Space

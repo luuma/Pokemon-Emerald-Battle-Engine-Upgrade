@@ -1,10 +1,12 @@
 #include "defines.h"
 #include "static_references.h"
 
-u8 is_bank_present(u8 bank);
-u8 percent_chance(u8 percent);
+bool is_bank_present(u8 bank);
+bool percent_chance(u8 percent);
 struct pokemon* get_bank_poke_ptr(u8 bank);
-u8 is_poke_valid(struct pokemon* poke);
+bool is_poke_valid(const struct pokemon* poke);
+void revert_form_change(bool mega_revert, u8 teamID, u8 side, const struct pokemon* poke);
+u8 get_bank_side(u8 bank);
 
 #pragma pack(push,1)
 struct double_grass_tile{
@@ -333,7 +335,8 @@ u8 partnerbattle_count_player_pokes(void)
 
 void atkF0_copy_caught_poke(void)
 {
-    struct pokemon* poke = get_bank_poke_ptr(bank_target);
+    const struct pokemon* poke = get_bank_poke_ptr(bank_target);
+    revert_form_change(0, battle_team_id_by_side[bank_target], get_bank_side(bank_target), poke);
     u8 ret;
     if ((battle_flags.player_ingame_partner || battle_flags.player_partner) && partnerbattle_count_player_pokes() >= 3) //its a partner battle, so add to pc
         ret = poke_add_to_pc(poke);

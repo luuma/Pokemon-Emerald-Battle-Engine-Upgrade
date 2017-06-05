@@ -2160,7 +2160,7 @@ BABYDOLL_EYES_description:
 
 
 NUZZLE_description:
-.byte R_, u_, b_, s_, Space, i_, t_, s_, Space, c_, h_, e_, e_, c_, k_, s_, Space, a_, g_, a_, i_, n_, s_, t_, JumpLine
+.byte R_, u_, b_, s_, Space, i_, t_, s_, Space, c_, h_, e_, e_, k_, s_, Space, a_, g_, a_, i_, n_, s_, t_, JumpLine
 .byte t_, h_, e_, Space, f_, o_, e_, Comma, Space, p_, a_, r_, a_, l_, y_, z_, i_, n_, g_, Space, i_, t_, Dot, Termin
 
 
