@@ -1089,7 +1089,7 @@ bool battle_turn_move_effects(void)
                                 }
                                 break;
                             case POKE_WISHIWASHI_SCHOOL:
-                                if(battle_participants[bank].current_hp && ((battle_participants[bank].current_hp < (battle_participants[bank].max_hp / 4)) || !check_ability(bank,ABILITY_SCHOOLING)))
+                                if(battle_participants[bank].current_hp && (battle_participants[bank].current_hp < (battle_participants[bank].max_hp / 4)))
                                 {
                                     effect = 1;
                                     new_battlestruct->various.var1 = POKE_WISHIWASHI;
@@ -1109,7 +1109,7 @@ bool battle_turn_move_effects(void)
                                 }
                                 break;
                             case POKE_MINIOR_METEOR:
-                                if(battle_participants[bank].current_hp && ((battle_participants[bank].current_hp < (battle_participants[bank].max_hp / 2)) || !check_ability(bank,ABILITY_SHIELDS_DOWN)))
+                                if(battle_participants[bank].current_hp && (battle_participants[bank].current_hp < (battle_participants[bank].max_hp / 2)))
                                 {
                                     effect = 1;
                                     new_battlestruct->various.var1 = POKE_MINIOR_CORE;
