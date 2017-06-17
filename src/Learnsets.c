@@ -1548,7 +1548,7 @@ CHIMECHO_MOVESET,
         #endif // ALL_POKES
     #endif // GEN6_LEARNSETS
 
-    #if ALL_POKES > 774
+    #if ALL_POKES > 775
         [775 ... ALL_POKES - 1] = EMPTYSLOT_MOVESET
     #endif // ALL_POKES
 
