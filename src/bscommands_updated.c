@@ -1133,7 +1133,7 @@ void atk49_move_end_turn(void)
                 }
                 else if (new_battlestruct->various.accumulated_damage && attacker_struct->current_hp < attacker_struct->max_hp)
                 {
-                    damage_loc = ATLEAST_ONE(new_battlestruct->various.accumulated_damage / 8);
+                    damage_loc = -ATLEAST_ONE(new_battlestruct->various.accumulated_damage / 8);
                     another_active_bank = bank_attacker;
                     battle_scripting.active_bank = bank_attacker;
                     last_used_item = attacker_struct->held_item;
