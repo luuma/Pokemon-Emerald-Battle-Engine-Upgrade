@@ -705,6 +705,45 @@ move_desc_table:
 .word NOTHING_description
 .word NOTHING_description
 .word NOTHING_description
+.word SHORE_UP_description
+.word FIRST_IMPRESSION_description
+.word BANEFUL_BUNKER_description
+.word SPIRIT_SHACKLE_description
+#DARKEST LARIAT
+.word CHIP_AWAY_description
+.word SPARKLING_ARIA_description
+#ICE HAMMER
+.word HAMMER_ARM_description
+.word FLORAL_HEALING_description
+.word HIGH_HORSEPOWER_description
+.word STRENGTH_SAP_description
+.word SOLAR_BLADE_description
+.word LEAFAGE_description
+.word SPOTLIGHT_description
+.word TOXIC_THREAD_description
+.word LASER_FOCUS_description
+.word GEAR_UP_description
+.word THROAT_CHOP_description
+.word POLLEN_PUFF_description
+#ANCHOR SHOT
+.word SPIRIT_SHACKLE_description
+.word PSYCHIC_TERRAIN_description
+.word LUNGE_description
+.word FIRE_LASH_description
+.word STORED_POWER_description
+.word BURN_UP_description
+.word SPEED_SWAP_description
+.word SMART_STRIKE_description
+.word PURIFY_description
+.word REVELATION_DANCE_description
+.word CORE_ENFORCER_description
+.word TROP_KICK_description
+.word INSTRUCT_description
+.word BEAK_BLAST_description
+.word CLANGING_SCALES_description
+.word DRAGON_HAMMER_description
+.word BRUTAL_SWING_description
+.word AURORA_VEIL_description
 .word NOTHING_description
 .word NOTHING_description
 .word NOTHING_description
@@ -714,56 +753,20 @@ move_desc_table:
 .word NOTHING_description
 .word NOTHING_description
 .word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
-.word NOTHING_description
+.word SHELL_TRAP_description
+.word FLEUR_CANNON_description
+.word PSYCHIC_FANGS_description
+.word STOMPING_TANTRUM_description
+.word SHADOW_BONE_description
+.word ACCELEROCK_description
+.word LIQUIDATION_description
+.word PRISMATIC_LASER_description
+.word SUNSTEEL_STRIKE_description
+.word MOONGEIST_BEAM_description
+.word TEARFUL_LOOK_description
+.word ZING_ZAP_description
+.word NATURES_MADNESS_description
+.word MULTI_ATTACK_description
 .word NOTHING_description
 .word NOTHING_description
 .word NOTHING_description
@@ -2160,7 +2163,7 @@ BABYDOLL_EYES_description:
 
 
 NUZZLE_description:
-.byte R_, u_, b_, s_, Space, i_, t_, s_, Space, c_, h_, e_, e_, k_, s_, Space, a_, g_, a_, i_, n_, s_, t_, JumpLine
+.byte R_, u_, b_, s_, Space, i_, t_, s_, Space, c_, h_, e_, e_, c_, k_, s_, Space, a_, g_, a_, i_, n_, s_, t_, JumpLine
 .byte t_, h_, e_, Space, f_, o_, e_, Comma, Space, p_, a_, r_, a_, l_, y_, z_, i_, n_, g_, Space, i_, t_, Dot, Termin
 
 
@@ -2200,8 +2203,244 @@ PRECIPICE_BLADES_description:
 
 
 LAVA_PLUME_description:
-.byte S_, c_, a_, r_, l_, e_, t_, 0, f_, l_, a_, m_, e_, s_, 0, t_, o_, r_, c_, h_, e_, s_, 0xFE
+.byte S_, c_, a_, r_, l_, e_, t_, 0, f_, l_, a_, m_, e_, s_, 0, t_, o_, r_, c_, h_, 0xFE
 .byte e_, v_, e_, r_, y_, t_, h_, i_, n_, g_, 0, a_, r_, o_, u_, n_, d_, 0, t_, h_, e_, 0, u_, s_, e_, r_, Dot, 0xFF
+
+
+SHORE_UP_description:
+.byte R_, e_, s_, t_, o_, r_, e_, s_, Space, t_, h_, e_, Space, u_, s_, e_, r_, Apos, s_, Space, H_, P_, Dot, JumpLine
+.byte M_, o_, r_, e_, Space, H_, P_, Space, i_, n_, Space, a_, Space, s_, a_, n_, d_, s_, t_, o_, r_, m_, Dot, Termin
+
+
+FIRST_IMPRESSION_description:
+.byte H_, i_, t_, s_, Space, h_, a_, r_, d_, Space, a_, n_, d_, Space, f_, i_, r_, s_, t_, Dot, JumpLine
+.byte O_, n_, l_, y_, Space, w_, o_, r_, k_, s_, Space, f_, i_, r_, s_, t_, Space, t_, u_, r_, n_, Dot, Termin
+
+
+BANEFUL_BUNKER_description:
+.byte P_, r_, o_, t_, e_, c_, t_, s_, Space, u_, s_, e_, r_, Space, a_, n_, d_, Space, p_, o_, i_, s_, o_, n_, s_, JumpLine
+.byte f_, o_, e_, s_, Space, o_, n_, Space, c_, o_, n_, t_, a_, c_, t_, Dot, Termin
+
+
+SPIRIT_SHACKLE_description:
+.byte A_, f_, t_, e_, r_, Space, b_, e_, i_, n_, g_, Space, h_, i_, t_, Comma, Space, f_, o_, e_, s_, Space, c_, a_, n_, JumpLine
+.byte n_, o_, Space, l_, o_, n_, g_, e_, r_, Space, e_, s_, c_, a_, p_, e_, Dot, Termin
+
+
+SPARKLING_ARIA_description:
+.byte S_, i_, n_, g_, s_, Space, w_, i_, t_, h_, Space, b_, u_, b_, b_, l_, e_, s_, Dot, Space, C_, u_, r_, e_, s_, JumpLine
+.byte b_, u_, r_, n_, s_, Space, o_, n_, Space, c_, o_, n_, t_, a_, c_, t_, Dot, Termin
+
+
+FLORAL_HEALING_description:
+.byte R_, e_, s_, t_, o_, r_, e_, s_, Space, a_, n_, Space, a_, l_, l_, y_, Apos, s_, Space, H_, P_, Dot, JumpLine
+.byte H_, e_, a_, l_, s_, Space, m_, o_, r_, e_, Space, o_, n_, Space, g_, r_, a_, s_, s_, Dot, Termin
+
+
+HIGH_HORSEPOWER_description:
+.byte S_, l_, a_, m_, s_, Space, h_, a_, r_, d_, Space, i_, n_, t_, o_, Space, t_, h_, e_, Space, f_, o_, e_, Space, w_, i_, t_, h_, JumpLine
+.byte i_, t_, s_, Space, e_, n_, t_, i_, r_, e_, Space, b_, o_, d_, y_, Dot, Termin
+
+
+STRENGTH_SAP_description:
+.byte S_, a_, p_, s_, Space, t_, h_, e_, Space, f_, o_, e_, Apos, s_, Space, A_, t_, t_, a_, c_, k_, Space, t_, o_, JumpLine
+.byte h_, e_, a_, l_, Space, H_, P_, Comma, Space, t_, h_, e_, n_, Space, d_, r_, o_, p_, s_, Space, A_, t_, t_, a_, c_, k_, Dot, Termin
+
+
+SOLAR_BLADE_description:
+.byte C_, h_, a_, r_, g_, e_, s_, Space, f_, i_, r_, s_, t_, Space, t_, u_, r_, n_, Comma, Space, t_, h_, e_, n_, JumpLine
+.byte c_, h_, o_, p_, s_, Space, w_, i_, t_, h_, Space, a_, Space, b_, l_, a_, d_, e_, Space, o_, f_, Space, l_, i_, g_, h_, t_, Dot, Termin
+
+
+LEAFAGE_description:
+.byte A_, t_, t_, a_, c_, k_, s_, Space, w_, i_, t_, h_, Space, a_, Space, f_, l_, u_, r_, r_, y_, Space, o_, f_, JumpLine
+.byte s_, m_, a_, l_, l_, Space, l_, e_, a_, v_, e_, s_, Dot, Termin
+
+
+SPOTLIGHT_description:
+.byte M_, a_, k_, e_, s_, Space, t_, h_, e_, Space, f_, o_, e_, Space, a_, t_, t_, a_, c_, k_, Space, t_, h_, e_, JumpLine
+.byte s_, p_, o_, t_, l_, i_, g_, h_, t_, e_, d_, Space, P_, o_, k_, Poke_e, m_, o_, n_, Dot, Termin
+
+
+TOXIC_THREAD_description:
+.byte A_, t_, t_, a_, c_, k_, s_, Space, w_, i_, t_, h_, Space, a_, Space, t_, h_, r_, e_, a_, d_, Space, t_, h_, a_, t_, JumpLine
+.byte p_, o_, i_, s_, o_, n_, s_, Space, a_, n_, d_, Space, d_, r_, o_, p_, s_, Space, S_, p_, e_, e_, d_, Dot, Termin
+
+
+LASER_FOCUS_description:
+.byte G_, u_, a_, r_, a_, n_, t_, e_, e_, s_, Space, t_, h_, e_, Space, n_, e_, x_, t_, Space, m_, o_, v_, e_, JumpLine
+.byte w_, i_, l_, l_, Space, b_, e_, Space, a_, Space, c_, r_, i_, t_, i_, c_, a_, l_, Space, h_, i_, t_, Dot, Termin
+
+
+GEAR_UP_description:
+.byte B_, o_, o_, s_, t_, s_, Space, t_, h_, e_, Space, a_, t_, t_, a_, c_, k_, s_, Space, o_, f_, JumpLine
+.byte t_, h_, o_, s_, e_, Space, w_, i_, t_, h_, Space, P_, l_, u_, s_, Space, o_, r_, Space, M_, i_, n_, u_, s_, Dot, Termin
+
+
+THROAT_CHOP_description:
+.byte C_, h_, o_, p_, s_, Space, t_, h_, e_, Space, t_, h_, r_, o_, a_, t_, Space, t_, o_, Space, d_, i_, s_, a_, b_, l_, e_, JumpLine
+.byte s_, o_, u_, n_, d_, Space, m_, o_, v_, e_, s_, Space, f_, o_, r_, Space, a_, Space, w_, h_, i_, l_, e_, Dot, Termin
+
+
+POLLEN_PUFF_description:
+.byte E_, x_, p_, l_, o_, d_, e_, s_, Space, o_, n_, Space, f_, o_, e_, s_, Comma, Space, b_, u_, t_, JumpLine
+.byte r_, e_, s_, t_, o_, r_, e_, s_, Space, a_, l_, l_, y_, Apos, s_, Space, H_, P_, Dot, Termin
+
+
+PSYCHIC_TERRAIN_description:
+.byte T_, h_, e_, Space, g_, r_, o_, u_, n_, d_, Space, t_, u_, r_, n_, s_, Space, w_, e_, i_, r_, d_, Space, f_, o_, r_, JumpLine
+.byte 0xA6, Space, t_, u_, r_, n_, s_, Dot, Space, B_, l_, o_, c_, k_, s_, Space, p_, r_, i_, o_, r_, i_, t_, y_, Dot, Termin
+
+
+LUNGE_description:
+.byte L_, u_, n_, g_, e_, s_, Space, a_, t_, Space, t_, h_, e_, Space, f_, o_, e_, Space, t_, o_, Space, l_, o_, w_, e_, r_, JumpLine
+.byte i_, t_, s_, Space, A_, t_, t_, a_, c_, k_, Space, s_, t_, a_, t_, Dot, Termin
+
+
+FIRE_LASH_description:
+.byte W_, h_, i_, p_, s_, Space, t_, h_, e_, Space, f_, o_, e_, Space, w_, i_, t_, h_, Space, f_, i_, r_, e_, Comma, JumpLine
+.byte l_, o_, w_, e_, r_, i_, n_, g_, Space, i_, t_, s_, Space, D_, e_, f_, e_, n_, s_, e_, Dot, Termin
+
+
+BURN_UP_description:
+.byte B_, u_, r_, n_, s_, Space, o_, u_, t_, Space, t_, h_, e_, Space, u_, s_, e_, r_, Space, f_, u_, l_, l_, y_, Comma, JumpLine
+.byte r_, e_, m_, o_, v_, i_, n_, g_, Space, t_, h_, e_, Space, F_, i_, r_, e_, Space, t_, y_, p_, e_, Dot, Termin
+
+
+SPEED_SWAP_description:
+.byte S_, w_, a_, p_, s_, Space, u_, s_, e_, r_, Apos, s_, Space, S_, p_, e_, e_, d_, Space, w_, i_, t_, h_, JumpLine
+.byte t_, h_, e_, Space, t_, a_, r_, g_, e_, t_, Apos, s_, Dot, Termin
+
+
+SMART_STRIKE_description:
+.byte H_, i_, t_, s_, Space, w_, i_, t_, h_, Space, a_, n_, Space, a_, c_, c_, u_, r_, a_, t_, e_, JumpLine
+.byte h_, o_, r_, n_, Space, t_, h_, a_, t_, Space, n_, e_, v_, e_, r_, Space, m_, i_, s_, s_, e_, s_, Dot, Termin
+
+
+PURIFY_description:
+.byte C_, u_, r_, e_, s_, Space, t_, h_, e_, Space, f_, o_, e_, Apos, s_, Space, s_, t_, a_, t_, u_, s_, JumpLine
+.byte t_, o_, Space, r_, e_, s_, t_, o_, r_, e_, Space, H_, P_, Dot, Termin
+
+
+REVELATION_DANCE_description:
+.byte D_, a_, n_, c_, e_, s_, Space, w_, i_, t_, h_, Space, m_, y_, s_, t_, i_, c_, a_, l_, Space, p_, o_, w_, e_, r_, Dot, JumpLine
+.byte M_, a_, t_, c_, h_, e_, s_, Space, u_, s_, e_, r_, Apos, s_, Space, f_, i_, r_, s_, t_, Space, t_, y_, p_, e_, Dot, Termin
+
+
+CORE_ENFORCER_description:
+.byte H_, i_, t_, s_, Space, w_, i_, t_, h_, Space, a_, Space, r_, a_, y_, Space, t_, h_, a_, t_, JumpLine
+.byte n_, u_, l_, l_, i_, f_, i_, e_, s_, Space, t_, h_, e_, Space, f_, o_, e_, Apos, s_, Space, a_, b_, i_, l_, i_, t_, y_, Dot, Termin
+
+
+TROP_KICK_description:
+.byte A_, n_, Space, i_, n_, t_, e_, n_, s_, e_, Space, k_, i_, c_, k_, Space, f_, r_, o_, m_, Space, t_, h_, e_, JumpLine
+.byte t_, r_, o_, p_, i_, c_, s_, Dot, Space, L_, o_, w_, e_, r_, s_, Space, A_, t_, t_, a_, c_, k_, Dot, Termin
+
+
+INSTRUCT_description:
+.byte O_, r_, d_, e_, r_, s_, Space, t_, h_, e_, Space, t_, a_, r_, g_, e_, t_, Space, t_, o_, Space, u_, s_, e_, JumpLine
+.byte i_, t_, s_, Space, l_, a_, s_, t_, Space, m_, o_, v_, e_, Space, a_, g_, a_, i_, n_, Dot, Termin
+
+
+BEAK_BLAST_description:
+.byte H_, e_, a_, t_, s_, Space, u_, p_, Space, b_, e_, a_, k_, Space, t_, o_, Space, a_, t_, t_, a_, c_, k_, Dot, JumpLine
+.byte B_, u_, r_, n_, s_, Space, f_, o_, e_, Space, o_, n_, Space, c_, o_, n_, t_, a_, c_, t_, Dot, Termin
+
+
+CLANGING_SCALES_description:
+.byte M_, a_, k_, e_, s_, Space, a_, Space, b_, i_, g_, Space, n_, o_, i_, s_, e_, Space, w_, i_, t_, h_, JumpLine
+.byte i_, t_, s_, Space, s_, c_, a_, l_, e_, s_, Dot, Space, D_, r_, o_, p_, s_, Space, D_, e_, f_, e_, n_, s_, e_, Dot, Termin
+
+
+DRAGON_HAMMER_description:
+.byte S_, w_, i_, n_, g_, s_, Space, i_, t_, s_, Space, w_, h_, o_, l_, e_, Space, b_, o_, d_, y_, JumpLine
+.byte l_, i_, k_, e_, Space, a_, Space, h_, a_, m_, m_, e_, r_, Space, t_, o_, Space, d_, a_, m_, a_, g_, e_, Dot, Termin
+
+
+BRUTAL_SWING_description:
+.byte V_, i_, o_, l_, e_, n_, t_, l_, y_, Space, s_, w_, i_, n_, g_, s_, Space, a_, r_, o_, u_, n_, d_, JumpLine
+.byte t_, o_, Space, h_, u_, r_, t_, Space, e_, v_, e_, r_, y_, o_, n_, e_, Space, n_, e_, a_, r_, b_, y_, Dot, Termin
+
+
+AURORA_VEIL_description:
+.byte W_, e_, a_, k_, e_, n_, s_, Space, a_, l_, l_, Space, a_, t_, t_, a_, c_, k_, s_, Comma, Space, b_, u_, t_, JumpLine
+.byte o_, n_, l_, y_, Space, u_, s_, a_, b_, l_, e_, Space, w_, i_, t_, h_, Space, h_, a_, i_, l_, Dot, Termin
+
+
+SHELL_TRAP_description:
+.byte S_, e_, t_, s_, Space, a_, Space, s_, h_, e_, l_, l_, Space, t_, r_, a_, p_, Space, t_, h_, a_, t_, JumpLine
+.byte d_, a_, m_, a_, g_, e_, s_, Space, o_, n_, Space, c_, o_, n_, t_, a_, c_, t_, Dot, Termin
+
+
+FLEUR_CANNON_description:
+.byte A_, Space, s_, t_, r_, o_, n_, g_, Space, r_, a_, y_, Space, t_, h_, a_, t_, Space, h_, a_, r_, s_, h_, l_, y_, JumpLine
+.byte l_, o_, w_, e_, r_, s_, Space, S_, p_, Dot, Space, A_, t_, t_, a_, c_, k_, Dot, Termin
+
+
+PSYCHIC_FANGS_description:
+.byte C_, h_, o_, m_, p_, s_, Space, w_, i_, t_, h_, Space, p_, s_, y_, c_, h_, i_, c_, Space, f_, a_, n_, g_, s_, Dot, JumpLine
+.byte D_, e_, s_, t_, r_, o_, y_, s_, Space, a_, n_, y_, Space, b_, a_, r_, r_, i_, e_, r_, s_, Dot, Termin
+
+
+STOMPING_TANTRUM_description:
+.byte S_, t_, o_, m_, p_, s_, Space, a_, r_, o_, u_, n_, d_, Space, a_, n_, g_, r_, i_, l_, y_, Dot, JumpLine
+.byte S_, t_, r_, o_, n_, g_, e_, r_, Space, a_, f_, t_, e_, r_, Space, a_, Space, f_, a_, i_, l_, u_, r_, e_, Dot, Termin
+
+
+SHADOW_BONE_description:
+.byte S_, t_, r_, i_, k_, e_, s_, Space, w_, i_, t_, h_, Space, a_, Space, h_, a_, u_, n_, t_, e_, d_, JumpLine
+.byte b_, o_, n_, e_, Dot, Space, M_, i_, g_, h_, t_, Space, d_, r_, o_, p_, Space, D_, e_, f_, e_, n_, s_, e_, Dot, Termin
+
+
+ACCELEROCK_description:
+.byte H_, i_, t_, s_, Space, w_, i_, t_, h_, Space, a_, Space, h_, i_, g_, h_, Dash, s_, p_, e_, e_, d_, JumpLine
+.byte r_, o_, c_, k_, Space, t_, h_, a_, t_, Space, a_, l_, w_, a_, y_, s_, Space, g_, o_, e_, s_, Space, f_, i_, r_, s_, t_, Dot, Termin
+
+
+LIQUIDATION_description:
+.byte S_, l_, a_, m_, s_, Space, t_, h_, e_, Space, f_, o_, e_, Space, w_, i_, t_, h_, Space, w_, a_, t_, e_, r_, Dot, JumpLine
+.byte C_, a_, n_, Space, l_, o_, w_, e_, r_, Space, D_, e_, f_, e_, n_, s_, e_, Dot, Termin
+
+
+PRISMATIC_LASER_description:
+.byte A_, Space, h_, i_, g_, h_, Space, p_, o_, w_, e_, r_, Space, l_, a_, s_, e_, r_, Space, t_, h_, a_, t_, JumpLine
+.byte f_, o_, r_, c_, e_, s_, Space, r_, e_, c_, h_, a_, r_, g_, e_, Space, n_, e_, x_, t_, Space, t_, u_, r_, n_, Dot, Termin
+
+
+SPECTRAL_THIEF_description:
+.byte S_, t_, e_, a_, l_, s_, Space, t_, h_, e_, Space, t_, a_, r_, g_, e_, t_, Apos, s_, Space, s_, t_, a_, t_, JumpLine
+.byte b_, o_, o_, s_, t_, s_, Comma, Space, t_, h_, e_, n_, Space, a_, t_, t_, a_, c_, k_, s_, Dot, Termin
+
+
+SUNSTEEL_STRIKE_description:
+.byte A_, Space, s_, u_, n_, Dash, f_, u_, e_, l_, e_, d_, Space, s_, t_, r_, i_, k_, e_, Space, t_, h_, a_, t_, JumpLine
+.byte i_, g_, n_, o_, r_, e_, s_, Space, a_, b_, i_, l_, i_, t_, i_, e_, s_, Dot, Termin
+
+
+MOONGEIST_BEAM_description:
+.byte A_, Space, m_, o_, o_, n_, Dash, p_, o_, w_, e_, r_, e_, d_, Space, b_, e_, a_, m_, Space, t_, h_, a_, t_, JumpLine
+.byte i_, g_, n_, o_, r_, e_, s_, Space, a_, b_, i_, l_, i_, t_, i_, e_, s_, Dot, Termin
+
+
+TEARFUL_LOOK_description:
+.byte T_, h_, e_, Space, u_, s_, e_, r_, Space, t_, e_, a_, r_, s_, Space, u_, p_, Comma, Space, d_, r_, o_, p_, p_, i_, n_, g_, JumpLine
+.byte A_, t_, t_, a_, c_, k_, Space, a_, n_, d_, Space, S_, p_, Dot, Space, A_, t_, t_, a_, c_, k_, Dot, Termin
+
+
+ZING_ZAP_description:
+.byte A_, n_, Space, e_, l_, e_, c_, t_, r_, i_, f_, i_, e_, d_, Space, i_, m_, p_, a_, c_, t_, Space, t_, h_, a_, t_, JumpLine
+.byte c_, a_, n_, Space, c_, a_, u_, s_, e_, Space, f_, l_, i_, n_, c_, h_, i_, n_, g_, Dot, Termin
+
+
+NATURES_MADNESS_description:
+.byte H_, a_, l_, v_, e_, s_, Space, t_, h_, e_, Space, f_, o_, e_, Apos, s_, Space, H_, P_, Space, w_, i_, t_, h_, JumpLine
+.byte t_, h_, e_, Space, p_, o_, w_, e_, r_, Space, o_, f_, Space, n_, a_, t_, u_, r_, e_, Dot, Termin
+
+
+MULTI_ATTACK_description:
+.byte A_, n_, Space, a_, t_, t_, a_, c_, k_, Space, t_, h_, a_, t_, Space, c_, h_, a_, n_, g_, e_, s_, JumpLine
+.byte w_, i_, t_, h_, Space, M_, e_, m_, o_, r_, i_, e_, s_, Dot, Termin
+
 
 NOTHING_description:
 .byte N_, o_, t_, h_, i_, n_, g_, Space, f_, o_, r_, Space, n_, o_, w_, Dot, Termin
