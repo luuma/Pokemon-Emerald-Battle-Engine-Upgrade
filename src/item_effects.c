@@ -643,26 +643,29 @@ u8 item_battle_effects(u8 switchid, u8 bank, u8 move_turn)
         }
         break;
     case 5: //toxic and flame orb
-        switch (item_effect)
+        if(battle_participants[bank].current_hp)
         {
-        case ITEM_EFFECT_FLAMEORB:
-            if (!cant_become_burned(bank, 1))
+            switch (item_effect)
             {
-                effect = ALTER_NON_VOLATILE_STATUS;
-                battle_participants[bank].status.flags.burn = 1;
-                call_bc_move_exec(BS_FLAMEORB);
-                record_usage_of_item(bank, ITEM_EFFECT_FLAMEORB);
+            case ITEM_EFFECT_FLAMEORB:
+                if (!cant_become_burned(bank, 1))
+                {
+                    effect = ALTER_NON_VOLATILE_STATUS;
+                    battle_participants[bank].status.flags.burn = 1;
+                    call_bc_move_exec(BS_FLAMEORB);
+                    record_usage_of_item(bank, ITEM_EFFECT_FLAMEORB);
+                }
+                break;
+            case ITEM_EFFECT_TOXICORB:
+                if (!cant_poison(bank, bank, 1))
+                {
+                    effect = ALTER_NON_VOLATILE_STATUS;
+                    battle_participants[bank].status.flags.toxic_poison = 1;
+                    call_bc_move_exec(BS_TOXICORB);
+                    record_usage_of_item(bank, ITEM_EFFECT_TOXICORB);
+                }
+                break;
             }
-            break;
-        case ITEM_EFFECT_TOXICORB:
-            if (!cant_poison(bank, bank, 1))
-            {
-                effect = ALTER_NON_VOLATILE_STATUS;
-                battle_participants[bank].status.flags.toxic_poison = 1;
-                call_bc_move_exec(BS_TOXICORB);
-                record_usage_of_item(bank, ITEM_EFFECT_TOXICORB);
-            }
-            break;
         }
         break;
     case 6: //red card and eject button
