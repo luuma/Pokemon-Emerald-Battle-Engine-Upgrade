@@ -1083,7 +1083,7 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u8 ability_to_check, u8 special
                 }
                 break;
             case ABILITY_CUTE_CHARM:
-                if (!check_ability(bank_attacker, ABILITY_OBLIVIOUS) && percent_chance(30) && contact && !check_field_for_ability(ABILITY_AROMA_VEIL, bank_side, 0))
+                if (curr_hp && !check_ability(bank_attacker, ABILITY_OBLIVIOUS) && percent_chance(30) && contact && !check_field_for_ability(ABILITY_AROMA_VEIL, bank_side, 0))
                 {
                     u8 target_gender = gender_from_pid(battle_participants[bank].species, battle_participants[bank].pid);
                     u8 attacker_gender = gender_from_pid(battle_participants[bank_attacker].species, battle_participants[bank_attacker].pid);
