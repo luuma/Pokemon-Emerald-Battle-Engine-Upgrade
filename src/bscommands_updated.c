@@ -1133,7 +1133,7 @@ void atk49_move_end_turn(void)
                 }
                 else if (new_battlestruct->various.accumulated_damage && attacker_struct->current_hp < attacker_struct->max_hp)
                 {
-                    damage_loc = ATLEAST_ONE(new_battlestruct->various.accumulated_damage / 8);
+                    damage_loc = -ATLEAST_ONE(new_battlestruct->various.accumulated_damage / 8);
                     another_active_bank = bank_attacker;
                     battle_scripting.active_bank = bank_attacker;
                     last_used_item = attacker_struct->held_item;
@@ -2747,146 +2747,168 @@ bool move_effect_setter(bool primary, bool certain)
     if (!is_bank_present(bank)) {battlescripts_curr_instruction++; return 0;} //dont do anything if the bank is dead
 
     //check things that may make move effect ineffective
-    bool substitute = (affected_by_substitute(bank) && bank != bank_attacker);
-    bool shielddust = (check_ability(bank, ABILITY_SHIELD_DUST) && bank == bank_target && !primary);
-    bool sheerforce = (check_ability(bank, ABILITY_SHEER_FORCE) && new_battlestruct->various.sheerforce_bonus && !primary);
+    bool substitute = (bank == bank_target && affected_by_substitute(bank));
+    bool shielddust = (bank == bank_target && check_ability(bank, ABILITY_SHIELD_DUST) && !primary);
+    bool sheerforce = (new_battlestruct->various.sheerforce_bonus && !primary);
 
     bool effect = 0;
+    bool effect_block = (substitute || shielddust || sheerforce);
 
-    if (!substitute && !shielddust && !sheerforce)
-    {
         if ((*move_effect) & MOVEEFFECT_STATCHANGE)
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_STATCHANGE);
-            u8 bits = STAT_CHANGE_VALUES;
-            if (primary || certain)
-                bits |= STAT_PRINTABILITY;
-            if ((*move_effect & MOVEEFFECT_AFFECTSUSER))
-                bits |= STAT_SELFINFLICTED;
-            u8 ret = change_stats(bank, bits, battlescripts_curr_instruction);
-            if (ret == STAT_CHANGED)
+            if(!effect_block)
             {
-                //stat was changed
-                effect = 1;
-                if (bank == bank_attacker)
-                    bs_push_current(ONE_STAT_USER_STATANIM);
-                else
-                    bs_push_current(ONE_STAT_TARGET_STATANIM);
-            }
-            else if (ret == STAT_CANT_GO_DOWN || ret == STAT_CANT_GO_UP)
-            {
-                if (primary || certain)
+                u8 bits = STAT_CHANGE_VALUES;
+
+                if ((*move_effect & MOVEEFFECT_AFFECTSUSER))
+                    bits |= STAT_SELFINFLICTED;
+                u8 ret = change_stats(bank, bits, battlescripts_curr_instruction);
+                if (ret == STAT_CHANGED)
                 {
+                    //stat was changed
                     effect = 1;
-                    bs_push_current(ONE_STAT_PRINT);
+                    if (bank == bank_attacker)
+                        bs_push_current(ONE_STAT_USER_STATANIM);
+                    else
+                        bs_push_current(ONE_STAT_TARGET_STATANIM);
                 }
             }
-            else if (ret == STAT_UNABLE) {effect = 1;}
         }
         else if ((*move_effect) & MOVEEFFECT_MULTIPLESTATS)
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_MULTIPLESTATS);
-            effect = 1;
-            if (certain || primary)
-                bs_push_current(BS_MULTIPLESTATCHANCE_ATK_CERTAIN);
-            else
-                bs_push_current(BS_MULTIPLESTATCHANCE_ATK);
+            if(!effect_block)
+            {
+                effect = 1;
+                if (certain || primary)
+                    bs_push_current(BS_MULTIPLESTATCHANCE_ATK_CERTAIN);
+                else
+                    bs_push_current(BS_MULTIPLESTATCHANCE_ATK);
+
+            }
+
         }
         else if ((*move_effect & MOVEEFFECT_TOXIC))
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_TOXIC);
-            effect = moveeffect_handle_psn(bank, STATUS_TOXIC_POISON, 1);
+            if(!effect_block)
+            {
+                effect = moveeffect_handle_psn(bank, STATUS_TOXIC_POISON, 1);
+            }
         }
         else if ((*move_effect & MOVEEFFECT_PSN))
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_PSN);
-            effect = moveeffect_handle_psn(bank, STATUS_POISON, 0);
+            if(!effect_block)
+            {
+                effect = moveeffect_handle_psn(bank, STATUS_POISON, 0);
+            }
         }
         else if ((*move_effect & MOVEEFFECT_BRN))
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_BRN);
-            switch (cant_become_burned(bank, 0))
+            if(!effect_block)
             {
-            case 0:
-                effect = 1;
-                moveeffect_set_status(bank, STATUS_BURN, 2);
-                break;
+                switch (cant_become_burned(bank, 0))
+                {
+                    case 0:
+                    effect = 1;
+                    moveeffect_set_status(bank, STATUS_BURN, 2);
+                    break;
+                }
             }
+
         }
         else if ((*move_effect & MOVEEFFECT_FRZ))
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_FRZ);
-            switch (cant_become_freezed(bank, 0))
+            if(!effect_block)
             {
-            case 0:
-                effect = 1;
-                moveeffect_set_status(bank, STATUS_FREEZE, 3);
-                break;
+                switch (cant_become_freezed(bank, 0))
+                {
+                case 0:
+                    effect = 1;
+                    moveeffect_set_status(bank, STATUS_FREEZE, 3);
+                    break;
+                }
             }
         }
         else if ((*move_effect & MOVEEFFECT_SLP))
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_SLP);
-            switch (cant_fall_asleep(bank, 0))
+            if(!effect_block)
             {
-            case 0:
-                effect = 1;
-                moveeffect_set_status(bank, __umodsi3(rng(), 4) + 2, 4);
-                break;
+                switch (cant_fall_asleep(bank, 0))
+                {
+                case 0:
+                    effect = 1;
+                    moveeffect_set_status(bank, __umodsi3(rng(), 4) + 2, 4);
+                    break;
+                }
             }
+
         }
         else if ((*move_effect & MOVEEFFECT_PRLZ))
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_PRLZ);
-            switch (cant_become_paralyzed(bank, 0))
+            if(!effect_block)
             {
-            case 0:
-                effect = 1;
-                moveeffect_set_status(bank, STATUS_PARALYSIS, 5);
-                break;
-            case 4: //ability doesn't allow it
-                if (primary || certain)
+                switch (cant_become_paralyzed(bank, 0))
                 {
-                    record_usage_of_ability(bank, battle_participants[bank].ability_id);
+                case 0:
                     effect = 1;
-                    bs_push_current((void*)(0x082DB5DD));
+                    moveeffect_set_status(bank, STATUS_PARALYSIS, 5);
+                    break;
+                case 4: //ability doesn't allow it
+                    if (primary || certain)
+                    {
+                        record_usage_of_ability(bank, battle_participants[bank].ability_id);
+                        effect = 1;
+                        bs_push_current((void*)(0x082DB5DD));
+                    }
+                    break;
                 }
-                break;
             }
         }
         else if ((*move_effect & MOVEEFFECT_CONFUSE))
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_CONFUSE);
-            switch (cant_become_confused(bank))
+            if(!effect_block)
             {
-            case 0: //can confuse
-                effect = 1;
-                battle_participants[bank].status2.confusion = 2 + __umodsi3(rng(), 4);
-                bs_push_current((void*)(0x082DB3E6)); //poke became confused
-                break;
-            case 4: //ability doesnt allow it
-                if (certain || primary)
+                switch (cant_become_confused(bank))
                 {
+                case 0: //can confuse
                     effect = 1;
-                    bs_push_current(CANT_CONFUSE_DUETOABILITY_PRINT);
-                }
-                break;
+                    battle_participants[bank].status2.confusion = 2 + __umodsi3(rng(), 4);
+                    bs_push_current((void*)(0x082DB3E6)); //poke became confused
+                    break;
+                case 4: //ability doesnt allow it
+                    if (certain || primary)
+                    {
+                        effect = 1;
+                        bs_push_current(CANT_CONFUSE_DUETOABILITY_PRINT);
+                    }
+                    break;
             }
         }
         else if ((*move_effect & MOVEEFFECT_FLINCH))
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_FLINCH);
-            if (check_ability(bank, ABILITY_INNER_FOCUS))
+            if(!effect_block)
             {
-                if (primary || certain)
+                if (check_ability(bank, ABILITY_INNER_FOCUS))
                 {
-                    effect = 1;
-                    record_usage_of_ability(bank, ABILITY_INNER_FOCUS);
-                    bs_push_current((void*)(0x82DB603));
+                    if (primary || certain)
+                    {
+                        effect = 1;
+                        record_usage_of_ability(bank, ABILITY_INNER_FOCUS);
+                        bs_push_current((void*)(0x82DB603));
+                    }
                 }
+                else
+                    battle_participants[bank].status2.flinched = 1;
             }
-            else
-                battle_participants[bank].status2.flinched = 1;
         }
     }
     if (!effect && !(*move_effect & MOVEEFFECT_ALL)) //no effect and no flag is set
@@ -2897,6 +2919,7 @@ bool move_effect_setter(bool primary, bool certain)
 
 void atk15_setmoveeffectchance(void)
 {
+
     if (!MOVE_WORKED) {battlescripts_curr_instruction++; battle_scripting.field16 = 0; return;} //don't do anything if move doesn't work
     if(TARGET_TURN_DAMAGED /*&& !affected_by_substitute(bank_target)*/)
     {
@@ -2938,6 +2961,7 @@ void atk15_setmoveeffectchance(void)
         }
     }
 
+    //bool res= true;
     u8 percent = move_table[current_move].effect_chance;
     u8 chance;
     if (current_move == MOVE_SECRET_POWER)
@@ -2966,6 +2990,7 @@ void atk15_setmoveeffectchance(void)
     }
     else
         battlescripts_curr_instruction++;
+
 
     battle_scripting.field16 = 0;
 }

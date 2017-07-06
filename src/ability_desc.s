@@ -152,47 +152,47 @@ ability_desc_table:
 .word PRIMORDIAL_SEA_description
 .word DESOLATE_LAND_description
 .word DELTA_STREAM_description
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
-.word 0x831AF98
+.word STAMINA_description
+.word WIMP_OUT_description
+.word WIMP_OUT_description
+.word WATER_COMPACTION_description
+.word MERCILESS_description
+.word SHIELDS_DOWN_description
+.word STAKEOUT_description
+.word WATER_BUBBLE_description
+.word STEELWORKER_description
+.word BERSERK_description
+.word SLUSH_RUSH_description
+.word LONG_REACH_description
+.word LIQUID_VOICE_description
+.word TRIAGE_description
+.word GALVANIZE_description
+.word SURGE_SURFER_description
+.word SCHOOLING_description
+.word DISGUISE_description
+.word BATTLE_BOND_description
+.word POWER_CONSTRUCT_description
+.word CORROSION_description
+.word COMATOSE_description
+.word QUEENLY_MAJESTY_description
+.word INNARDS_OUT_description
+.word DANCER_description
+.word BATTERY_description
+.word FLUFFY_description
+.word QUEENLY_MAJESTY_description
+.word SOUL_HEART_description
+.word GOOEY_description
+.word RECEIVER_description
+.word RECEIVER_description
+.word BEAST_BOOST_description
+.word RKS_SYSTEM_description
+.word ELECTRIC_SURGE_description
+.word PSYCHIC_SURGE_description
+.word MISTY_SURGE_description
+.word GRASSY_SURGE_description
+.word FULL_METAL_BODY_description
+.word MULTISCALE_description
+.word FILTER_description
 .word 0x831AF98
 .word 0x831AF98
 .word 0x831AF98
@@ -263,7 +263,7 @@ ADAPTABILITY_description:
 .byte B_, o_, o_, s_, t_, s_, Space, s_, a_, m_, e_, Space, t_, y_, p_, e_, Space, a_, t_, t_, a_, c_, k_, s_, Dot, Termin
 
 SKILL_LINK_description:
-.byte M_, u_, l_, t_, i_, Dash, h_, i_, t_, Space, m_, o_, v_, e_, s_, Space, h_, i_, t_, Space, 0xA6, Dash, t_, i_, m_, e_, s_, Termin
+.byte M_, u_, l_, t_, i_, Dash, h_, i_, t_, Space, m_, o_, v_, e_, s_, Space, h_, i_, t_, Space, 0xA6, Dash, t_, i_, m_, e_, s_, Dot, Termin
 
 HYDRATION_description:
 .byte C_, u_, r_, e_, s_, Space, s_, t_, a_, t_, u_, s_, Space, i_, n_, Space, r_, a_, i_, n_, Dot, Termin
@@ -497,7 +497,7 @@ MEGA_LAUNCHER_description:
 .byte B_, o_, o_, s_, t_, s_, Space, p_, u_, l_, s_, e_, Space, m_, o_, v_, e_, s_, Dot, Termin
 
 GRASS_PELT_description:
-.byte U_, p_, s_, Space, D_, e_, f_, e_, n_, s_, e_, Space, i_, n_, Space, G_, r_, a_, s_, s_, Dot, Termin
+.byte U_, p_, s_, Space, D_, e_, f_, e_, n_, s_, e_, Space, i_, n_, Space, g_, r_, a_, s_, s_, Dot, Termin
 
 SYMBIOSIS_description:
 .byte P_, a_, s_, s_, e_, s_, Space, i_, t_, s_, Space, i_, t_, e_, m_, Space, t_, o_, Space, a_, n_, Space, a_, l_, l_, y_, Dot, Termin
@@ -534,4 +534,110 @@ DESOLATE_LAND_description:
 
 DELTA_STREAM_description:
 .byte S_, u_, m_, m_, o_, n_, s_, Space, s_, t_, r_, o_, n_, g_, Space, w_, i_, n_, d_, s_, Dot, Termin
+
+STAMINA_description:
+.byte B_, o_, o_, s_, t_, s_, Space, D_, e_, f_, e_, n_, s_, e_, Space, w_, h_, e_, n_, Space, h_, i_, t_, Dot, Termin
+
+WIMP_OUT_description:
+.byte F_, l_, e_, e_, s_, Space, a_, t_, Space, h_, a_, l_, f_, Space, H_, P_, Dot, Termin
+
+WATER_COMPACTION_description:
+.byte W_, a_, t_, e_, r_, Space, b_, o_, o_, s_, t_, s_, Space, D_, e_, f_, e_, n_, s_, e_, Dot, Termin
+
+MERCILESS_description:
+.byte C_, r_, i_, t_, i_, c_, a_, l_, s_, Space, p_, o_, i_, s_, o_, n_, e_, d_, Space, f_, o_, e_, s_, Dot, Termin
+
+SHIELDS_DOWN_description:
+.byte S_, h_, e_, l_, l_, Space, b_, r_, e_, a_, k_, s_, Space, a_, t_, Space, h_, a_, l_, f_, Space, H_, P_, Dot, Termin
+
+STAKEOUT_description:
+.byte S_, t_, r_, o_, n_, g_, e_, r_, Space, a_, s_, Space, f_, o_, e_, s_, Space, s_, w_, i_, t_, c_, h_, Space, i_, n_, Dot, Termin
+
+WATER_BUBBLE_description:
+.byte G_, u_, a_, r_, d_, s_, Space, f_, r_, o_, m_, Space, f_, i_, r_, e_, Space, a_, n_, d_, Space, b_, u_, r_, n_, s_, Dot, Termin
+
+STEELWORKER_description:
+.byte P_, o_, w_, e_, r_, s_, Space, u_, p_, Space, S_, t_, e_, e_, l_, Space, m_, o_, v_, e_, s_, Dot, Termin
+
+BERSERK_description:
+.byte B_, o_, o_, s_, t_, s_, Space, S_, p_, Dot, Space, A_, t_, t_, a_, c_, k_, Space, a_, t_, Space, l_, o_, w_, Space, H_, P_, Dot, Termin
+
+SLUSH_RUSH_description:
+.byte R_, a_, i_, s_, e_, s_, Space, S_, p_, e_, e_, d_, Space, i_, n_, Space, h_, a_, i_, l_, Dot, Termin
+
+LONG_REACH_description:
+.byte N_, e_, v_, e_, r_, Space, m_, a_, k_, e_, s_, Space, c_, o_, n_, t_, a_, c_, t_, Dot, Termin
+
+LIQUID_VOICE_description:
+.byte M_, a_, k_, e_, s_, Space, s_, o_, u_, n_, d_, Space, m_, o_, v_, e_, s_, Space, W_, a_, t_, e_, r_, Dot, Termin
+
+TRIAGE_description:
+.byte H_, e_, a_, l_, i_, n_, g_, Space, m_, o_, v_, e_, s_, Space, g_, o_, Space, f_, i_, r_, s_, t_, Dot, Termin
+
+GALVANIZE_description:
+.byte N_, o_, r_, m_, a_, l_, Space, m_, o_, v_, e_, s_, Space, t_, u_, r_, n_, Space, E_, l_, e_, c_, t_, r_, i_, c_, Dot, Termin
+
+SURGE_SURFER_description:
+.byte F_, a_, s_, t_, e_, r_, Space, o_, n_, Space, e_, l_, e_, c_, t_, r_, i_, c_, i_, t_, y_, Dot, Termin
+
+SCHOOLING_description:
+.byte F_, o_, r_, m_, s_, Space, a_, Space, s_, c_, h_, o_, o_, l_, Space, w_, h_, e_, n_, Space, s_, t_, r_, o_, n_, g_, Dot, Termin
+
+DISGUISE_description:
+.byte D_, e_, c_, o_, y_, Space, p_, r_, o_, t_, e_, c_, t_, s_, Space, i_, t_, Space, o_, n_, c_, e_, Dot, Termin
+
+BATTLE_BOND_description:
+.byte C_, h_, a_, n_, g_, e_, s_, Space, f_, o_, r_, m_, Space, a_, f_, t_, e_, r_, Space, a_, Space, K_, O_, Dot, Termin
+
+POWER_CONSTRUCT_description:
+.byte C_, e_, l_, l_, s_, Space, a_, i_, d_, Space, i_, t_, Space, w_, h_, e_, n_, Space, w_, e_, a_, k_, e_, n_, e_, d_, Dot, Termin
+
+CORROSION_description:
+.byte P_, o_, i_, s_, o_, n_, s_, Space, a_, n_, y_, Space, t_, y_, p_, e_, Dot, Termin
+
+COMATOSE_description:
+.byte A_, l_, w_, a_, y_, s_, Space, d_, r_, o_, w_, s_, i_, n_, g_, Dot, Termin
+
+QUEENLY_MAJESTY_description:
+.byte P_, r_, o_, t_, e_, c_, t_, s_, Space, f_, r_, o_, m_, Space, p_, r_, i_, o_, r_, i_, t_, y_, Dot, Termin
+
+INNARDS_OUT_description:
+.byte H_, u_, r_, t_, s_, Space, f_, o_, e_, Space, w_, h_, e_, n_, Space, d_, e_, f_, e_, a_, t_, e_, d_, Dot, Termin
+
+DANCER_description:
+.byte D_, a_, n_, c_, e_, s_, Space, a_, l_, o_, n_, g_, Space, w_, i_, t_, h_, Space, o_, t_, h_, e_, r_, s_, Dot, Termin
+
+BATTERY_description:
+.byte B_, o_, o_, s_, t_, s_, Space, a_, l_, l_, y_, Apos, s_, Space, S_, p_, Dot, Space, A_, t_, t_, a_, c_, k_, Dot, Termin
+
+FLUFFY_description:
+.byte T_, o_, u_, g_, h_, e_, r_, Comma, Space, b_, u_, t_, Space, f_, l_, a_, m_, m_, a_, b_, l_, e_, Dot, Termin
+
+SOUL_HEART_description:
+.byte S_, p_, Dot, Space, A_, t_, t_, a_, c_, k_, Space, u_, p_, Space, a_, f_, t_, e_, r_, Space, a_, Space, K_, O_, Dot, Termin
+
+RECEIVER_description:
+.byte C_, o_, p_, i_, e_, s_, Space, a_, l_, l_, y_, Apos, s_, Space, a_, b_, i_, l_, i_, t_, y_, Dot, Termin
+
+BEAST_BOOST_description:
+.byte K_, O_, s_, Space, b_, o_, o_, s_, t_, Space, b_, e_, s_, t_, Space, s_, t_, a_, t_, Dot, Termin
+
+RKS_SYSTEM_description:
+.byte M_, e_, m_, o_, r_, i_, e_, s_, Space, c_, h_, a_, n_, g_, e_, Space, i_, t_, s_, Space, t_, y_, p_, e_, Dot, Termin
+
+ELECTRIC_SURGE_description:
+.byte F_, i_, e_, l_, d_, Space, b_, e_, c_, o_, m_, e_, s_, Space, e_, l_, e_, c_, t_, r_, i_, c_, Dot, Termin
+
+PSYCHIC_SURGE_description:
+.byte F_, i_, e_, l_, d_, Space, b_, e_, c_, o_, m_, e_, s_, Space, w_, e_, i_, r_, d_, Dot, Termin
+
+MISTY_SURGE_description:
+.byte F_, i_, e_, l_, d_, Space, b_, e_, c_, o_, m_, e_, s_, Space, m_, i_, s_, t_, y_, Dot, Termin
+
+GRASSY_SURGE_description:
+.byte F_, i_, e_, l_, d_, Space, b_, e_, c_, o_, m_, e_, s_, Space, g_, r_, a_, s_, s_, y_, Dot, Termin
+
+FULL_METAL_BODY_description:
+.byte S_, t_, a_, t_, s_, Space, a_, r_, e_, n_, Apos, t_, Space, r_, e_, d_, u_, c_, e_, d_, Dot, Termin
+
 .word 0xFFFFFFF
