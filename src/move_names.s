@@ -662,6 +662,7 @@ move_names_table:
 .byte B_, l_, a_, c_, k_, Space, H_, o_, l_, e_, Termin, Space, Space
 .byte B_, l_, a_, c_, k_, Space, H_, o_, l_, e_, Termin, Space, Space
 .byte T_, w_, i_, n_, k_, l_, e_, Space, S_, l_, a_, m_, Termin
+.byte T_, w_, i_, n_, k_, l_, e_, Space, S_, l_, a_, m_, Termin
 .byte C_, a_, t_, a_, s_, t_, r_, o_, p_, i_, k_, a_, Termin
 .byte S_, h_, o_, r_, e_, Space, U_, p_, Termin, Space, Space, Space, Space
 .byte F_, i_, r_, s_, t_, Space, S_, i_, g_, h_, t_, Termin, Space
