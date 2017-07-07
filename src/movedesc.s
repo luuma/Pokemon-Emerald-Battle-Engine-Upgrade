@@ -761,6 +761,7 @@ move_desc_table:
 .word ACCELEROCK_description
 .word LIQUIDATION_description
 .word PRISMATIC_LASER_description
+.word SPECTRAL_THIEF_description
 .word SUNSTEEL_STRIKE_description
 .word MOONGEIST_BEAM_description
 .word TEARFUL_LOOK_description
