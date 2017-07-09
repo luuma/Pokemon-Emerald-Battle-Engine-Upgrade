@@ -2785,11 +2785,9 @@ bool move_effect_setter(bool primary, bool certain)
                     bs_push_current(BS_MULTIPLESTATCHANCE_ATK_CERTAIN);
                 else
                     bs_push_current(BS_MULTIPLESTATCHANCE_ATK);
-
             }
-
         }
-        else if ((*move_effect & MOVEEFFECT_TOXIC))
+        else if ((*move_effect) & MOVEEFFECT_TOXIC)
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_TOXIC);
             if(!effect_block)
@@ -2797,7 +2795,7 @@ bool move_effect_setter(bool primary, bool certain)
                 effect = moveeffect_handle_psn(bank, STATUS_TOXIC_POISON, 1);
             }
         }
-        else if ((*move_effect & MOVEEFFECT_PSN))
+        else if ((*move_effect) & MOVEEFFECT_PSN)
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_PSN);
             if(!effect_block)
@@ -2805,7 +2803,7 @@ bool move_effect_setter(bool primary, bool certain)
                 effect = moveeffect_handle_psn(bank, STATUS_POISON, 0);
             }
         }
-        else if ((*move_effect & MOVEEFFECT_BRN))
+        else if ((*move_effect) & MOVEEFFECT_BRN)
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_BRN);
             if(!effect_block)
@@ -2818,9 +2816,8 @@ bool move_effect_setter(bool primary, bool certain)
                     break;
                 }
             }
-
         }
-        else if ((*move_effect & MOVEEFFECT_FRZ))
+        else if ((*move_effect) & MOVEEFFECT_FRZ)
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_FRZ);
             if(!effect_block)
@@ -2834,7 +2831,7 @@ bool move_effect_setter(bool primary, bool certain)
                 }
             }
         }
-        else if ((*move_effect & MOVEEFFECT_SLP))
+        else if ((*move_effect) & MOVEEFFECT_SLP)
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_SLP);
             if(!effect_block)
@@ -2847,9 +2844,8 @@ bool move_effect_setter(bool primary, bool certain)
                     break;
                 }
             }
-
         }
-        else if ((*move_effect & MOVEEFFECT_PRLZ))
+        else if ((*move_effect) & MOVEEFFECT_PRLZ)
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_PRLZ);
             if(!effect_block)
@@ -2860,18 +2856,10 @@ bool move_effect_setter(bool primary, bool certain)
                     effect = 1;
                     moveeffect_set_status(bank, STATUS_PARALYSIS, 5);
                     break;
-                case 4: //ability doesn't allow it
-                    if (primary || certain)
-                    {
-                        record_usage_of_ability(bank, battle_participants[bank].ability_id);
-                        effect = 1;
-                        bs_push_current((void*)(0x082DB5DD));
-                    }
-                    break;
                 }
             }
         }
-        else if ((*move_effect & MOVEEFFECT_CONFUSE))
+        else if ((*move_effect) & MOVEEFFECT_CONFUSE)
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_CONFUSE);
             if(!effect_block)
@@ -2883,16 +2871,10 @@ bool move_effect_setter(bool primary, bool certain)
                     battle_participants[bank].status2.confusion = 2 + __umodsi3(rng(), 4);
                     bs_push_current((void*)(0x082DB3E6)); //poke became confused
                     break;
-                case 4: //ability doesnt allow it
-                    if (certain || primary)
-                    {
-                        effect = 1;
-                        bs_push_current(CANT_CONFUSE_DUETOABILITY_PRINT);
-                    }
-                    break;
+                }
             }
         }
-        else if ((*move_effect & MOVEEFFECT_FLINCH))
+        else if ((*move_effect) & MOVEEFFECT_FLINCH)
         {
             *move_effect = BIC(*move_effect, MOVEEFFECT_FLINCH);
             if(!effect_block)
@@ -2910,8 +2892,8 @@ bool move_effect_setter(bool primary, bool certain)
                     battle_participants[bank].status2.flinched = 1;
             }
         }
-    }
-    if (!effect && !(*move_effect & MOVEEFFECT_ALL)) //no effect and no flag is set
+
+    if (!effect && !((*move_effect) & MOVEEFFECT_ALL)) //no effect and no flag is set
         battlescripts_curr_instruction++;
     bank_partner_def = bank;
     return effect;

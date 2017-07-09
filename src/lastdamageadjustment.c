@@ -55,16 +55,16 @@ void atk07_final_dmg_calc(void)
         if (!affected_by_substitute(bank_target))
         {
             u16 target_hp = battle_participants[bank_target].current_hp;
-            if (protect_structs[bank_target].flag0_endure && damage_loc > target_hp)
+            if (protect_structs[bank_target].flag0_endure && (damage_loc >= target_hp))
             {
                 damage_loc = target_hp - 1;
                 move_outcome.endured = 1;
             }
-            else if ((current_move == MOVE_FALSE_SWIPE || current_move == MOVE_HOLD_BACK) && damage_loc > target_hp && !(move_outcome.failed || move_outcome.missed || move_outcome.not_affected))
+            else if ((current_move == MOVE_FALSE_SWIPE || current_move == MOVE_HOLD_BACK) && (damage_loc >= target_hp) && !(move_outcome.failed || move_outcome.missed || move_outcome.not_affected))
             {
                 damage_loc = target_hp - 1;
             }
-            else if (battle_participants[bank_target].ability_id == ABILITY_STURDY && has_ability_effect(bank_target, 1, 1) && damage_loc > target_hp && target_hp == battle_participants[bank_target].max_hp)
+            else if (battle_participants[bank_target].ability_id == ABILITY_STURDY && has_ability_effect(bank_target, 1, 1) && (damage_loc >= target_hp) && target_hp == battle_participants[bank_target].max_hp)
             {
                 damage_loc = target_hp - 1;
                 move_outcome.sturdied = 1;
@@ -74,7 +74,7 @@ void atk07_final_dmg_calc(void)
                 switch (get_item_effect(bank_target, 1))
                 {
                 case ITEM_EFFECT_FOCUSSASH:
-                    if (damage_loc > target_hp && target_hp == battle_participants[bank_target].max_hp)
+                    if ((damage_loc >= target_hp) && target_hp == battle_participants[bank_target].max_hp)
                     {
                         damage_loc = target_hp - 1;
                         move_outcome.hanged_on_using_item = 1;
@@ -86,7 +86,7 @@ void atk07_final_dmg_calc(void)
                     }
                     break;
                 case ITEM_EFFECT_FOCUSBAND:
-                    if (damage_loc > target_hp && (__umodsi3(rng(), 100) + 1) < get_all_item_quality(bank_target))
+                    if ((damage_loc >= target_hp) && (__umodsi3(rng(), 100) + 1) < get_all_item_quality(bank_target))
                     {
                         damage_loc = target_hp - 1;
                         move_outcome.hanged_on_using_item = 1;
