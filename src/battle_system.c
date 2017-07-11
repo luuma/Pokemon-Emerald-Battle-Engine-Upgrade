@@ -1917,6 +1917,7 @@ bool message_cant_choose_move(void)
     void** loc_to_store_bs = (void*) 0x2024220 + bank * 4;
     bool cant = 0;
     u8 item_effect = get_item_effect(bank, 1);
+    current_move = checking_move;
     if (checking_bank->current_pp[move_index] == 0)
     {
         cant = 1;
@@ -1954,19 +1955,16 @@ bool message_cant_choose_move(void)
     else if (disable_structs[bank].disabled_move == checking_move && disable_structs[bank].disable_timer)
     {
         cant = 1;
-        current_move = checking_move;
         *loc_to_store_bs = (void*) 0x82DAE1F;
     }
     else if (new_battlestruct->field_affecting.gravity && gravity_forbidden_move(checking_move))
     {
         cant = 1;
-        current_move = checking_move;
         *loc_to_store_bs = BS_CANTSELECT_GRAVITY;
     }
     else if (new_battlestruct->bank_affecting[bank].heal_block && healblock_forbidden_moves(checking_move, 0))
     {
         cant = 1;
-        current_move = checking_move;
         *loc_to_store_bs = BS_CANTSELECT_HEALBLOCK;
     }
     return cant;
