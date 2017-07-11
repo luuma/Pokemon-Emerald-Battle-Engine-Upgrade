@@ -307,341 +307,22 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u8 ability_to_check, u8 special
     u16 adder=0;
     switch (switch_id)
     {
-    case 0: //switch-in abilities
-        if(special_cases_argument == 0xFF && !battle_flags.recorded_battle)
+    case 0: //switch-in ability activator
+        if(special_cases_argument == 0xFF)
         {
-            effect=load_weather_from_overworld();
-            break;
+            if(!battle_flags.recorded_battle)
+            {
+                effect=load_weather_from_overworld();
+            }
+
         }
-        if(status3[bank].switchinlock)
-            break;
-        if(handle_primal_reversion(bank))
+        else
         {
-            battle_stuff_ptr->switch_in_ability_bank_counter--;
-            effect=1;
-            break;
-        }
-        u8 dontlock=0;
-        switch (last_used_ability)
-        {
-        case ABILITY_MOLD_BREAKER:
-            battle_communication_struct.multistring_chooser = 0;
-        MOLDBREAKER_MSG:
-            script_ptr = BS_MOLDBREAKER;
-            common_effect=1;
-            break;
-        case ABILITY_TURBOBLAZE:
-            battle_communication_struct.multistring_chooser = 1;
-            goto MOLDBREAKER_MSG;
-        case ABILITY_TERAVOLT:
-            battle_communication_struct.multistring_chooser = 2;
-            goto MOLDBREAKER_MSG;
-        case ABILITY_PRESSURE:
-            script_ptr = BS_PRESSURE;
-            common_effect=1;
-            break;
-        case ABILITY_AURA_BREAK:
-            script_ptr = BS_AURABREAK;
-            common_effect=1;
-            break;
-        case ABILITY_FAIRY_AURA:
-            script_ptr = BS_FAIRYAURA;
-            common_effect=1;
-            break;
-        case ABILITY_DARK_AURA:
-            script_ptr = BS_DARKAURA;
-            common_effect=1;
-            break;
-        case ABILITY_UNNERVE:
-            bank_attacker = bank;
-            bank_target = bank ^ 1;
-            bs_execute(BS_UNNERVE);
-            effect = 1;
-            break;
-        case ABILITY_DOWNLOAD:
-            {
-                u16 def_sum = 0;
-                u16 spdef_sum = 0;
-                for (u8 i = 0; i < no_of_all_banks; i++)
-                {
-                    if (i != bank && bank_side!= get_bank_side(i))
-                    {
-                        def_sum += battle_participants[i].def;
-                        spdef_sum += battle_participants[i].sp_def;
-                    }
-                }
-                if (spdef_sum >= def_sum)
-                    battle_scripting.stat_changer = 0x14;
-                else
-                    battle_scripting.stat_changer = 0x11;
-                effect = 1;
-                bank_attacker = bank;
-                bs_execute(BS_DOWNLOAD);
-            }
-            break;
-        case ABILITY_DROUGHT:
-            if (!(SUN_WEATHER || battle_weather.flags.heavy_rain || battle_weather.flags.air_current))
-            {
-                effect = true;
-                battle_weather.int_bw = weather_sun;
-
-                if (get_item_effect(bank, true) == ITEM_EFFECT_HEATROCK)
-                    battle_effects_duration.weather_dur = 8;
-                else
-                    battle_effects_duration.weather_dur = 5;
-
-                bs_execute(BS_DROUGHT);
-                battle_scripting.active_bank = bank;
-                dontlock=1;
-            }
-            break;
-        case ABILITY_DRIZZLE:
-            if (!(RAIN_WEATHER || battle_weather.flags.harsh_sun || battle_weather.flags.air_current))
-            {
-                effect = true;
-                battle_weather.int_bw = weather_rain;
-                if (get_item_effect(bank, true) == ITEM_EFFECT_DAMPROCK)
-                    battle_effects_duration.weather_dur = 8;
-                else
-                    battle_effects_duration.weather_dur = 5;
-
-                bs_execute(BS_DRIZZLE);
-                battle_scripting.active_bank = bank;
-                dontlock=1;
-            }
-            break;
-        case ABILITY_SAND_STREAM:
-            if (!(battle_weather.flags.sandstorm || battle_weather.flags.permament_sandstorm || battle_weather.flags.harsh_sun || battle_weather.flags.heavy_rain || battle_weather.flags.air_current))
-            {
-                effect = true;
-                battle_weather.int_bw = weather_sandstorm;
-                if (get_item_effect(bank, true) == ITEM_EFFECT_SMOOTHROCK)
-                    battle_effects_duration.weather_dur = 8;
-                else
-                    battle_effects_duration.weather_dur = 5;
-
-                bs_execute(BS_SANDSTREAM);
-                battle_scripting.active_bank = bank;
-                dontlock=1;
-            }
-            break;
-        case ABILITY_SNOW_WARNING:
-            if (!(HAIL_WEATHER || battle_weather.flags.harsh_sun || battle_weather.flags.heavy_rain || battle_weather.flags.air_current))
-            {
-                effect = true;
-                battle_weather.int_bw = weather_hail;
-                if (get_item_effect(bank, true) == ITEM_EFFECT_ICYROCK)
-                    battle_effects_duration.weather_dur = 8;
-                else
-                    battle_effects_duration.weather_dur = 5;
-
-                bs_execute(BS_SNOWWARNING);
-                battle_scripting.active_bank = bank;
-                dontlock=1;
-            }
-            break;
-        case ABILITY_DESOLATE_LAND:
-            if (!(battle_weather.flags.harsh_sun))
-            {
-                effect = true;
-                battle_weather.int_bw = weather_harsh_sun | weather_permament_sun;
-                bs_execute(BS_DESOLATELAND);
-                battle_scripting.active_bank = bank;
-                dontlock=1;
-            }
-            break;
-        case ABILITY_PRIMORDIAL_SEA:
-            if (!(battle_weather.flags.heavy_rain))
-            {
-                effect = true;
-                battle_weather.int_bw = weather_heavy_rain | weather_permament_rain;
-                bs_execute(BS_PRIMORDIALSEA);
-                battle_scripting.active_bank = bank;
-                dontlock=1;
-            }
-            break;
-        case ABILITY_DELTA_STREAM:
-            if (!(battle_weather.flags.air_current))
-            {
-                effect = true;
-                battle_weather.int_bw = weather_air_current;
-                bs_execute(BS_DELTASTREAM);
-                battle_scripting.active_bank = bank;
-                dontlock=1;
-            }
-            break;
-        case ABILITY_FRISK:
-            {
-                effect = true;
-                battle_stuff_ptr->intimidate_user=bank;
-                bs_execute(FRISK_BS);
-            }
-            break;
-        case ABILITY_FOREWARN:
-            {
-                u16 best_move = get_forewarn_move(bank);
-                if (best_move)
-                {
-                    effect = true;
-                    u8 forewarn_bank = bank ^ 1;
-                    if (get_move_position(forewarn_bank, best_move) == -1)
-                        forewarn_bank ^= 2;
-                    record_usage_of_move(forewarn_bank, best_move);
-                    battle_scripting.active_bank = bank;
-                    bank_partner_def = forewarn_bank;
-                    bs_execute(BS_FOREWARN);
-                    move_to_buff1(best_move);
-                }
-            }
-            break;
-        case ABILITY_ANTICIPATION:
-            if (anticipation_shudder(bank))
-            {
-                effect = true;
-                battle_scripting.active_bank = bank;
-                bs_execute(BS_ANTICIPATION);
-            }
-            break;
-        case ABILITY_IMPOSTER:
-            {
-                u8 opposing_bank = bank ^ 1;
-                if (is_bank_present(opposing_bank) && !battle_participants[opposing_bank].status2.transformed && !battle_participants[bank].status2.transformed)
-                {
-                    effect = 1;
-                    bs_execute(BS_IMPOSTER);
-                    current_move = MOVE_TRANSFORM;
-                    bank_attacker = bank;
-                    bank_target = opposing_bank;
-                    dontlock=1;
-                }
-            }
-            break;
-        case ABILITY_INTIMIDATE:
-            bs_execute(BS_INTIMIDATE);
-            battle_stuff_ptr->intimidate_user = bank_attacker = bank;
-            effect=true;
-            break;
-        case ABILITY_TRACE:
-            {
-                active_bank=bank^1;
-                u16 hp1=battle_participants[active_bank].current_hp;
-                if (battle_flags.double_battle)
-                {
-                    u16 hp2=battle_participants[active_bank^2].current_hp;
-                    if(hp1==0 && hp2==0)
-                        break;
-                    if(hp1==0 || (hp2!=0 && COIN_FLIP(0,1)))
-                        active_bank=active_bank^2;
-                }
-                else if (hp1==0)
-                        break;
-                last_used_ability=battle_participants[active_bank].ability_id;
-                if (!last_used_ability)
-                    break;
-                if (last_used_ability!=ABILITY_TRACE) //If trace copies another switch-in ability. This fragment enables to activate that ability immediately after tracing.
-                {
-                    battle_stuff_ptr->switch_in_ability_bank_counter--;
-                    dontlock=1;
-                }
-                script_ptr = (void*) 0x082DB452;
-                bs_execute(script_ptr);
-                battle_participants[bank].ability_id=last_used_ability;
-                battle_scripting.active_bank = bank;
-                battle_stuff_ptr->intimidate_user=bank;
-                battle_text_buff1[0]=0xFD;
-                battle_text_buff1[1]=0x4;
-                battle_text_buff1[2]=active_bank;
-                battle_text_buff1[3]=battle_team_id_by_side[active_bank];
-                battle_text_buff1[4]=0xFF;
-                battle_text_buff2[0]=0xFD;
-                battle_text_buff2[1]=0x9;
-                battle_text_buff2[2]=last_used_ability;
-                battle_text_buff2[3]=0xFF;
-                effect=true;
-            }
-            break;
-        case ABILITY_AIR_LOCK:
-        case ABILITY_CLOUD_NINE:
-            effect = 1;
-            bank_attacker = bank;
-            bs_execute(BS_AIRLOCK);
-            break;
-        case ABILITY_FLOWER_GIFT:
-            effect = exec_cherrim_script(bank, 1);
-            break;
-        case ABILITY_FORECAST:
-            effect = exec_castform_script(bank, 1);
-            break;
-        case ABILITY_SLOW_START:
-            new_battlestruct->bank_affecting[bank].slowstart_duration = 5;
-            common_effect = 1;
-            script_ptr = BS_SLOWSTART_MSG1;
-            break;
-        case ABILITY_ELECTRIC_SURGE:
-            if (!new_battlestruct->field_affecting.electic_terrain)
-            {
-                common_effect = 1;
-                reset_terrains(&new_battlestruct->field_affecting);
-                new_battlestruct->field_affecting.electic_terrain = terrains_get_turns(bank);
-                script_ptr = BS_ELECTRIC_SURGE;
-            }
-            break;
-        case ABILITY_MISTY_SURGE:
-            if (!new_battlestruct->field_affecting.misty_terrain)
-            {
-                common_effect = 1;
-                reset_terrains(&new_battlestruct->field_affecting);
-                new_battlestruct->field_affecting.misty_terrain = terrains_get_turns(bank);
-                script_ptr = BS_MISTY_SURGE;
-            }
-            break;
-        case ABILITY_GRASSY_SURGE:
-            if (!new_battlestruct->field_affecting.grassy_terrain)
-            {
-                common_effect = 1;
-                reset_terrains(&new_battlestruct->field_affecting);
-                new_battlestruct->field_affecting.grassy_terrain = terrains_get_turns(bank);
-                script_ptr = BS_GRASSY_SURGE;
-            }
-            break;
-        case ABILITY_PSYCHIC_SURGE:
-            if (!new_battlestruct->field_affecting.psychic_terrain)
-            {
-                common_effect = 1;
-                reset_terrains(&new_battlestruct->field_affecting);
-                new_battlestruct->field_affecting.psychic_terrain = terrains_get_turns(bank);
-                script_ptr = BS_PSYCHIC_SURGE;
-            }
-            break;
-        case ABILITY_SHIELDS_DOWN:
-            if(battle_participants[bank].species==POKE_MINIOR_CORE && (battle_participants[bank].current_hp >= (battle_participants[bank].max_hp >> 1)) && !battle_participants[bank].status2.transformed)
-            {
-                common_effect = 1;
-                new_battlestruct->various.var1 = POKE_MINIOR_METEOR;
-                new_battlestruct->various.var2 = 0x242;
-                script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
-            }
-            break;
-        case ABILITY_SCHOOLING:
-            if(battle_participants[bank].species==POKE_WISHIWASHI && battle_participants[bank].level >= SCHOOLING_LEVEL
-               && (battle_participants[bank].current_hp >= (battle_participants[bank].max_hp >> 2)) && !battle_participants[bank].status2.transformed)
-            {
-                 common_effect = 1;
-                new_battlestruct->various.var1 = POKE_WISHIWASHI_SCHOOL;
-                new_battlestruct->various.var2 = 0x244;
-                script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
-            }
-            break;
-        }
-        if (common_effect)
-        {
-            effect = true;
-            battle_scripting.active_bank = bank;
-            bs_execute(script_ptr);
-        }
-        if(effect && !dontlock)
             status3[bank].switchinlock=1;
+        }
+
         break;
+
     case 1: //end turn abilities
         if (!(battle_participants[bank].current_hp && has_ability_effect(bank, 0)))
             break;
@@ -1214,6 +895,27 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u8 ability_to_check, u8 special
             }
         }
         break;
+    case 9: // switch-in abilities executor
+        for (u8 k = 0; k < no_of_all_banks; k++)
+        {
+            if(status3[k].switchinlock)
+            {
+                status3[k].switchinlock = 0;
+                if(handle_primal_reversion(k))
+                {
+                    effect=1;
+                    break;
+                }
+                status3[k].innerswitchinlock = 1;
+                effect = ability_battle_effects(24,k,0,0,0);
+                if(effect)
+                {
+                    break;
+                }
+            }
+        }
+
+        break;
     case 10:
         if (has_ability_effect(bank, 0) && MOVE_WORKED
                 && battle_participants[bank_attacker].current_hp && (special_statuses[bank_target].moveturn_losthp))
@@ -1340,8 +1042,327 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u8 ability_to_check, u8 special
             special_statuses[bank].moveturn_losthp && !protect_structs[bank].flag1_confusion_self_damage)
             effect = item_force_switching(bank, BS_WIMPOUT);
         break;
+    case 24: //switch ability per bank
+
+        if(status3[bank].innerswitchinlock)
+        {
+
+
+             switch (last_used_ability)
+        {
+            case ABILITY_MOLD_BREAKER:
+                battle_communication_struct.multistring_chooser = 0;
+            MOLDBREAKER_MSG:
+                script_ptr = BS_MOLDBREAKER;
+                common_effect=1;
+                break;
+            case ABILITY_TURBOBLAZE:
+                battle_communication_struct.multistring_chooser = 1;
+                goto MOLDBREAKER_MSG;
+            case ABILITY_TERAVOLT:
+                battle_communication_struct.multistring_chooser = 2;
+                goto MOLDBREAKER_MSG;
+            case ABILITY_PRESSURE:
+                script_ptr = BS_PRESSURE;
+                common_effect=1;
+                break;
+            case ABILITY_AURA_BREAK:
+                script_ptr = BS_AURABREAK;
+                common_effect=1;
+                break;
+            case ABILITY_FAIRY_AURA:
+                script_ptr = BS_FAIRYAURA;
+                common_effect=1;
+                break;
+            case ABILITY_DARK_AURA:
+                script_ptr = BS_DARKAURA;
+                common_effect=1;
+                break;
+            case ABILITY_UNNERVE:
+                bank_attacker = bank;
+                bank_target = bank ^ 1;
+                bs_execute(BS_UNNERVE);
+                effect = 1;
+                break;
+            case ABILITY_DOWNLOAD:
+                {
+                    u16 def_sum = 0;
+                    u16 spdef_sum = 0;
+                    for (u8 i = 0; i < no_of_all_banks; i++)
+                    {
+                        if (i != bank && bank_side!= get_bank_side(i) && is_bank_present(i))
+                        {
+                            def_sum += battle_participants[i].def;
+                            spdef_sum += battle_participants[i].sp_def;
+                        }
+                    }
+                    if (spdef_sum >= def_sum)
+                        battle_scripting.stat_changer = 0x14;
+                    else
+                        battle_scripting.stat_changer = 0x11;
+                    if(spdef_sum || def_sum)
+                    {
+                        effect = 1;
+                        bank_attacker = bank;
+                        bs_execute(BS_DOWNLOAD);
+                    }
+
+                }
+                break;
+            case ABILITY_DROUGHT:
+                if (!(SUN_WEATHER || battle_weather.flags.heavy_rain || battle_weather.flags.air_current))
+                {
+                    effect = true;
+                    battle_weather.int_bw = weather_sun;
+
+                    if (get_item_effect(bank, true) == ITEM_EFFECT_HEATROCK)
+                        battle_effects_duration.weather_dur = 8;
+                    else
+                        battle_effects_duration.weather_dur = 5;
+
+                    bs_execute(BS_DROUGHT);
+                    battle_scripting.active_bank = bank;
+                }
+                break;
+            case ABILITY_DRIZZLE:
+                if (!(RAIN_WEATHER || battle_weather.flags.harsh_sun || battle_weather.flags.air_current))
+                {
+                    effect = true;
+                    battle_weather.int_bw = weather_rain;
+                    if (get_item_effect(bank, true) == ITEM_EFFECT_DAMPROCK)
+                        battle_effects_duration.weather_dur = 8;
+                    else
+                        battle_effects_duration.weather_dur = 5;
+
+                    bs_execute(BS_DRIZZLE);
+                    battle_scripting.active_bank = bank;
+                }
+                break;
+            case ABILITY_SAND_STREAM:
+                if (!(battle_weather.flags.sandstorm || battle_weather.flags.permament_sandstorm || battle_weather.flags.harsh_sun || battle_weather.flags.heavy_rain || battle_weather.flags.air_current))
+                {
+                    effect = true;
+                    battle_weather.int_bw = weather_sandstorm;
+                    if (get_item_effect(bank, true) == ITEM_EFFECT_SMOOTHROCK)
+                        battle_effects_duration.weather_dur = 8;
+                    else
+                        battle_effects_duration.weather_dur = 5;
+
+                    bs_execute(BS_SANDSTREAM);
+                    battle_scripting.active_bank = bank;
+                }
+                break;
+            case ABILITY_SNOW_WARNING:
+                if (!(HAIL_WEATHER || battle_weather.flags.harsh_sun || battle_weather.flags.heavy_rain || battle_weather.flags.air_current))
+                {
+                    effect = true;
+                    battle_weather.int_bw = weather_hail;
+                    if (get_item_effect(bank, true) == ITEM_EFFECT_ICYROCK)
+                        battle_effects_duration.weather_dur = 8;
+                    else
+                        battle_effects_duration.weather_dur = 5;
+
+                    bs_execute(BS_SNOWWARNING);
+                    battle_scripting.active_bank = bank;
+                }
+                break;
+            case ABILITY_DESOLATE_LAND:
+                if (!(battle_weather.flags.harsh_sun))
+                {
+                    effect = true;
+                    battle_weather.int_bw = weather_harsh_sun | weather_permament_sun;
+                    bs_execute(BS_DESOLATELAND);
+                    battle_scripting.active_bank = bank;
+                }
+                break;
+            case ABILITY_PRIMORDIAL_SEA:
+                if (!(battle_weather.flags.heavy_rain))
+                {
+                    effect = true;
+                    battle_weather.int_bw = weather_heavy_rain | weather_permament_rain;
+                    bs_execute(BS_PRIMORDIALSEA);
+                    battle_scripting.active_bank = bank;
+                }
+                break;
+            case ABILITY_DELTA_STREAM:
+                if (!(battle_weather.flags.air_current))
+                {
+                    effect = true;
+                    battle_weather.int_bw = weather_air_current;
+                    bs_execute(BS_DELTASTREAM);
+                    battle_scripting.active_bank = bank;
+                }
+                break;
+            case ABILITY_FRISK:
+                {
+                    effect = true;
+                    battle_stuff_ptr->intimidate_user=bank;
+                    bs_execute(FRISK_BS);
+                }
+                break;
+            case ABILITY_FOREWARN:
+                {
+                    u16 best_move = get_forewarn_move(bank);
+                    if (best_move)
+                    {
+                        effect = true;
+                        u8 forewarn_bank = bank ^ 1;
+                        if (get_move_position(forewarn_bank, best_move) == -1)
+                            forewarn_bank ^= 2;
+                        record_usage_of_move(forewarn_bank, best_move);
+                        battle_scripting.active_bank = bank;
+                        bank_partner_def = forewarn_bank;
+                        bs_execute(BS_FOREWARN);
+                        move_to_buff1(best_move);
+                    }
+                }
+                break;
+            case ABILITY_ANTICIPATION:
+                if (anticipation_shudder(bank))
+                {
+                    effect = true;
+                    battle_scripting.active_bank = bank;
+                    bs_execute(BS_ANTICIPATION);
+                }
+                break;
+            case ABILITY_IMPOSTER:
+                {
+                    u8 opposing_bank = bank ^ 1;
+                    if (is_bank_present(opposing_bank) && !battle_participants[opposing_bank].status2.transformed && !battle_participants[bank].status2.transformed)
+                    {
+                        effect = 1;
+                        bs_execute(BS_IMPOSTER);
+                        new_battlestruct->various.active_bank = bank;
+                        current_move = MOVE_TRANSFORM;
+                        bank_attacker = bank;
+                        bank_target = opposing_bank;
+                    }
+                }
+                break;
+            case ABILITY_INTIMIDATE:
+                bs_execute(BS_INTIMIDATE);
+                battle_stuff_ptr->intimidate_user = bank_attacker = bank;
+                effect=true;
+                break;
+            case ABILITY_TRACE:
+                {
+                    active_bank=bank^1;
+                    bool bank1exists=is_bank_present(active_bank);
+                    if (battle_flags.double_battle)
+                    {
+                        bool bank2exists= is_bank_present(active_bank*2);
+                        if(!bank1exists && !bank2exists)
+                            break;
+                        if(!bank1exists || (bank1exists && COIN_FLIP(0,1)))
+                            active_bank=active_bank^2;
+                    }
+                    else if (!bank1exists)
+                            break;
+                    last_used_ability=battle_participants[active_bank].ability_id;
+                    if (!last_used_ability)
+                        break;
+                    script_ptr = BS_TRACE;
+                    bs_execute(script_ptr);
+                    battle_participants[bank].ability_id=last_used_ability;
+                    battle_scripting.active_bank = bank;
+                    new_battlestruct->various.active_bank = bank;
+                    battle_stuff_ptr->intimidate_user=bank;
+                    battle_text_buff1[0]=0xFD;
+                    battle_text_buff1[1]=0x4;
+                    battle_text_buff1[2]=active_bank;
+                    battle_text_buff1[3]=battle_team_id_by_side[active_bank];
+                    battle_text_buff1[4]=0xFF;
+                    battle_text_buff2[0]=0xFD;
+                    battle_text_buff2[1]=0x9;
+                    battle_text_buff2[2]=last_used_ability;
+                    battle_text_buff2[3]=0xFF;
+                    effect=true;
+                }
+                break;
+            case ABILITY_AIR_LOCK:
+            case ABILITY_CLOUD_NINE:
+                effect = 1;
+                bank_attacker = bank;
+                bs_execute(BS_AIRLOCK);
+                break;
+            case ABILITY_FLOWER_GIFT:
+                effect = exec_cherrim_script(bank, 1);
+                break;
+            case ABILITY_FORECAST:
+                effect = exec_castform_script(bank, 1);
+                break;
+            case ABILITY_SLOW_START:
+                new_battlestruct->bank_affecting[bank].slowstart_duration = 5;
+                common_effect = 1;
+                script_ptr = BS_SLOWSTART_MSG1;
+                break;
+            case ABILITY_ELECTRIC_SURGE:
+                if (!new_battlestruct->field_affecting.electic_terrain)
+                {
+                    common_effect = 1;
+                    reset_terrains(&new_battlestruct->field_affecting);
+                    new_battlestruct->field_affecting.electic_terrain = terrains_get_turns(bank);
+                    script_ptr = BS_ELECTRIC_SURGE;
+                }
+                break;
+            case ABILITY_MISTY_SURGE:
+                if (!new_battlestruct->field_affecting.misty_terrain)
+                {
+                    common_effect = 1;
+                    reset_terrains(&new_battlestruct->field_affecting);
+                    new_battlestruct->field_affecting.misty_terrain = terrains_get_turns(bank);
+                    script_ptr = BS_MISTY_SURGE;
+                }
+                break;
+            case ABILITY_GRASSY_SURGE:
+                if (!new_battlestruct->field_affecting.grassy_terrain)
+                {
+                    common_effect = 1;
+                    reset_terrains(&new_battlestruct->field_affecting);
+                    new_battlestruct->field_affecting.grassy_terrain = terrains_get_turns(bank);
+                    script_ptr = BS_GRASSY_SURGE;
+                }
+                break;
+            case ABILITY_PSYCHIC_SURGE:
+                if (!new_battlestruct->field_affecting.psychic_terrain)
+                {
+                    common_effect = 1;
+                    reset_terrains(&new_battlestruct->field_affecting);
+                    new_battlestruct->field_affecting.psychic_terrain = terrains_get_turns(bank);
+                    script_ptr = BS_PSYCHIC_SURGE;
+                }
+                break;
+            case ABILITY_SHIELDS_DOWN:
+                if(battle_participants[bank].species==POKE_MINIOR_CORE && (battle_participants[bank].current_hp >= (battle_participants[bank].max_hp >> 1)) && !battle_participants[bank].status2.transformed)
+                {
+                    common_effect = 1;
+                    new_battlestruct->various.var1 = POKE_MINIOR_METEOR;
+                    new_battlestruct->various.var2 = 0x242;
+                    script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
+                }
+                break;
+            case ABILITY_SCHOOLING:
+                if(battle_participants[bank].species==POKE_WISHIWASHI && battle_participants[bank].level >= SCHOOLING_LEVEL
+                   && (battle_participants[bank].current_hp >= (battle_participants[bank].max_hp >> 2)) && !battle_participants[bank].status2.transformed)
+                {
+                     common_effect = 1;
+                    new_battlestruct->various.var1 = POKE_WISHIWASHI_SCHOOL;
+                    new_battlestruct->various.var2 = 0x244;
+                    script_ptr = BS_STAT_ONLY_FORMCHANGE_END3;
+                }
+                break;
+            }
+            if (common_effect)
+            {
+                effect = true;
+                battle_scripting.active_bank = bank;
+                bs_execute(script_ptr);
+            }
+            status3[bank].innerswitchinlock=0;
+            break;
+        }
     }
-    if (effect && last_used_ability != 0xFF && (switch_id <= 12 || switch_id >= 21))
+    if (effect && last_used_ability != 0xFF && (switch_id <= 12 || switch_id >= 21) && switch_id!=9)
         record_usage_of_ability(bank, last_used_ability);
     return effect;
 }

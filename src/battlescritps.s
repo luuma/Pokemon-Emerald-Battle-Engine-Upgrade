@@ -165,6 +165,7 @@ BS_MEGA_EVO_STUFF:
 	callasm_cmd 106
 	callasm_cmd 89
 	printstring 0x204
+	waitmessage 0x40
 	callasm_cmd 0
 	end3
 	
@@ -187,6 +188,7 @@ BS_PRIMAL:
 	callasm_cmd 89
 	printstring 0x210
 	waitmessage 0x40
+	callasm_cmd 0
 	end3
 	
 .global BS_OMEGA_PRIMAL
@@ -890,6 +892,17 @@ BS_CHERRIMSWITCH:
 .global BS_CHERRIMSWITCH_END3
 BS_CHERRIMSWITCH_END3:
 	call BS_CHERRIMSWITCH
+	end3
+	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ BS Trace
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.global BS_TRACE
+BS_TRACE:
+	pause_cmd 0x10
+	printstring 0xD0
+	waitanimation
+	callasm_cmd 0	@calls switch-in abilities
 	end3
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

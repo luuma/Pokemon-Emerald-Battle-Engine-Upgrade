@@ -403,7 +403,6 @@ u8 check_mega_evo(u8 bank)
         battle_text_buff1[2] = mega_species;
         battle_text_buff1[3] = mega_species >> 8;
         battle_text_buff1[4] = 0xFF;
-        status3[bank].switchinlock=0;
 
         if(bank_mega_mode==2)
         {

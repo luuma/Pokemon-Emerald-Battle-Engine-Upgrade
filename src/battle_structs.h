@@ -343,6 +343,7 @@ struct status_3{
     u32 unburden : 1; //x100 000 (previously trace)
     u32 phantomforce : 1; //x200 000
     u32 focus_punch_charge : 1; //x400 000
+    u32 innerswitchinlock : 1; //x800 000
 };
 
 extern struct status_3 status3[4];

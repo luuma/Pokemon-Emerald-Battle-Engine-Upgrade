@@ -43,3 +43,6 @@
 *.sgm
 *.sa1
 *.lnk
+
+#folders
+build

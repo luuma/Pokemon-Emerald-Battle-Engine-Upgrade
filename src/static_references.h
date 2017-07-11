@@ -127,6 +127,7 @@ extern u8 BS_MOLDBREAKER[];
 extern u8 BS_UNNERVE[];
 extern u8 BS_TELEPATHY[];
 extern u8 BS_SYMBIOSIS[];
+extern u8 BS_TRACE[];
 extern u8 BS_IMPOSTER[];
 extern u8 BS_ILLUSION_OFF[];
 extern u8 BS_SLOWSTART_MSG1[];

@@ -81,7 +81,8 @@ u8 count_party_pokemon(u8 bank)
 
 void ability_switchin_effect(void)
 {
-    ability_battle_effects(0, new_battlestruct->various.active_bank, 0, 0, 0);
+    status3[new_battlestruct->various.active_bank].innerswitchinlock = 1;
+    ability_battle_effects(24, new_battlestruct->various.active_bank, 0, 0, 0);
 }
 
 void change_attacker_item(void)
@@ -877,6 +878,7 @@ void ability_change(void)
                 *ability_atk = *ability_def;
                 *ability_def = placeholder;
                 battle_communication_struct.multistring_chooser = 0;
+                status3[*ability_atk].switchinlock = status3[*ability_def].switchinlock = 1;
             }
             break;
         case 1: //attacker's ability becomes target's
@@ -886,6 +888,7 @@ void ability_change(void)
             {
                 last_used_ability = *ability_atk = *ability_def;
                 battle_communication_struct.multistring_chooser = 1;
+                status3[*ability_atk].switchinlock = 1;
             }
             break;
         case 2: //target's ability becomes attacker
@@ -895,6 +898,7 @@ void ability_change(void)
             {
                 last_used_ability = *ability_def = *ability_atk;
                 battle_communication_struct.multistring_chooser = 2;
+                status3[*ability_def].switchinlock = 1;
             }
             break;
         case 3: //target's ability becomes the one in arg2
@@ -907,6 +911,7 @@ void ability_change(void)
                     *ability_def = newability;
                     last_used_ability = newability;
                     battle_communication_struct.multistring_chooser = 2;
+                    status3[*ability_def].switchinlock = 1;
                 }
             }
             break;
