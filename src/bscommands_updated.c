@@ -515,7 +515,7 @@ void status_to_effect();
 bool move_effect2_setter(void)
 {
     u8 *move_effect = &battle_communication_struct.move_effect;
-    if (!MOVE_WORKED) {*move_effect = 0; return 0;} //if move didn't work, its effect can't work either
+    if (!MOVE_WORKED || hitmarker&0x80000) {*move_effect = 0; return 0;} //if move didn't work, its effect can't work either
 
     //get bank
     u8 bank = bank_target;
@@ -2744,7 +2744,7 @@ bool move_effect_setter(bool primary, bool certain)
     u8 bank = bank_target;
     if (*move_effect & MOVEEFFECT_AFFECTSUSER) {bank = bank_attacker;}
 
-    if (!is_bank_present(bank)) {battlescripts_curr_instruction++; return 0;} //dont do anything if the bank is dead
+    if (!is_bank_present(bank) || hitmarker&0x80000 || !MOVE_WORKED) {battlescripts_curr_instruction++; return 0;} //dont do anything if the bank is dead
 
     //check things that may make move effect ineffective
     bool substitute = (bank == bank_target && affected_by_substitute(bank));
