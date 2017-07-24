@@ -902,7 +902,9 @@ BS_TRACE:
 	pause_cmd 0x10
 	printstring 0xD0
 	waitanimation
+	jumpifability 0xA ABILITY_TRACE BS_TRACE_END
 	callasm_cmd 0	@calls switch-in abilities
+BS_TRACE_END:
 	end3
 	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
