@@ -294,7 +294,7 @@ u16 damage_type_effectiveness_update(u16 move, u8 attacking_type, u8 defending_t
         }
     }
 
-    if ((((attacking_type == TYPE_NORMAL || attacking_type == TYPE_FIGHTING) && defending_type == TYPE_GHOST && ((battle_participants[def_bank].status2.foresight))) || battle_participants[atk_bank].ability_id == ABILITY_SCRAPPY) && effect == 0)
+    if ((attacking_type == TYPE_NORMAL || attacking_type == TYPE_FIGHTING) && defending_type == TYPE_GHOST && (battle_participants[def_bank].status2.foresight || battle_participants[atk_bank].ability_id == ABILITY_SCRAPPY) && effect == 0)
     {
         effect = 10;
     }
