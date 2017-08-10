@@ -329,6 +329,17 @@ u8 ability_battle_effects(u8 switch_id, u8 bank, u8 ability_to_check, u8 special
         bank_attacker = bank;
         switch (last_used_ability)
         {
+            case ABILITY_ICE_BODY:
+                if (weather_abilities_effect() && (battle_weather.flags.hail || battle_weather.flags.permament_hail))
+                {
+                    if (battle_participants[bank].current_hp < battle_participants[bank].max_hp && !new_battlestruct->bank_affecting[bank].heal_block)
+                    {
+                        bs_execute(BS_ABILITYHPCHANGE_END3);
+                        damage_loc = get_1_16_of_max_hp(bank) * (-1);
+                        effect = true;
+                    }
+                }
+                break;
             case ABILITY_RAIN_DISH:
                 if (weather_abilities_effect() && (battle_weather.flags.downpour || battle_weather.flags.rain || battle_weather.flags.permament_rain || battle_weather.flags.heavy_rain))
                 {

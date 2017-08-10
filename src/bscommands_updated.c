@@ -234,14 +234,11 @@ void atk96_weather_damage(void)
         }
         else if (battle_weather.flags.hail || battle_weather.flags.permament_hail)
         {
-            if (!(is_of_type(bank_attacker, TYPE_ICE)) && !(ability_effect && (ability == ABILITY_SNOW_CLOAK)))
+            if (!(is_of_type(bank_attacker, TYPE_ICE)) && !(ability_effect && (ability == ABILITY_SNOW_CLOAK || ability == ABILITY_ICE_BODY)))
             {
                 if (!(status3[bank_attacker].underground || status3[bank_attacker].underwater))
                 {
                     damage = ATLEAST_ONE(battle_participants[bank_attacker].max_hp >> 4);
-
-                    if (ability_effect && ability == ABILITY_ICE_BODY)
-                        damage *= -1;
                 }
             }
         }
