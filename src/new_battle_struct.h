@@ -126,8 +126,10 @@ struct various{
     u8 sent_in_player : 6;
     u8 returns_item : 6;
     u8 gravity_levitate : 1;
-    u16 original_held_item[6];
-    u8 returns_swap : 6;
+    #if ITEM_SWAP == false
+      u16 original_held_item[6];
+      u8 returns_swap : 6;
+    #endif // ITEMS_SWAP
     u8* trainer_slide_msg;
     u8 trainer_msg_on_switch_in_done : 1;
     u8 trainer_msg_on_low_health_done : 1;

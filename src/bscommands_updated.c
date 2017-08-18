@@ -3128,13 +3128,15 @@ void atkD2_itemswap(void)
             *attacker_item = 0;
             bb2_setattributes_in_battle(0, REQUEST_HELDITEM_BATTLE, 0, 2, target_item);
             mark_buffer_bank_for_execution(bank_target);
-            if (!ITEM_SWAP && battle_flags.trainer)//set items to return later
+            #if ITEM_SWAP == false
+            if (battle_flags.trainer)//set items to return later
             {
                 u8 bank = bank_attacker;
                 if (get_bank_side(bank_attacker))
                     bank = bank_target;
                 new_battlestruct->various.returns_swap |= bits_table[battle_team_id_by_side[bank]];
             }
+            #endif // ITEMS_SWAP
         }
     }
     battlescripts_curr_instruction = (void*) (read_word(battlescripts_curr_instruction + 1));
