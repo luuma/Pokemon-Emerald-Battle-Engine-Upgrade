@@ -126,7 +126,7 @@ struct various{
     u8 sent_in_player : 6;
     u8 returns_item : 6;
     u8 gravity_levitate : 1;
-    #if ITEM_SWAP == false
+    #if ITEM_SWAP == true
     u16 original_held_item[6];
     u8 returns_swap : 6;
     #endif // ITEMS_SWAP
