@@ -243,6 +243,9 @@ extern u8 BS_ZYGARDE_FORM_CHANGE[];
 extern u8 BS_BATTLE_BOND[];
 extern u8 BS_MIMIKYU_BUST[];
 
+extern u8 BS_MISTY_TERRAIN_PREVENT[];
+extern u8 BS_ELECTRIC_TERRAIN_PREVENT[];
+
 //locations in asm files
 extern const u8 ability_names_table[250][13];
 extern const u8 move_names_table[1025][13];

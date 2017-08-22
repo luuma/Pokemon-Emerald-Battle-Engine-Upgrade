@@ -197,6 +197,27 @@ BS_OMEGA_PRIMAL:
 	playanimation bank_attacker 0x20 0
 	goto_cmd BS_PRIMAL
 	
+	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ BS Misty Terrain Status Prevent
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.global BS_MISTY_TERRAIN_PREVENT
+BS_MISTY_TERRAIN_PREVENT:
+	pause_cmd 0x20
+	printstring 0x24D
+	waitmessage 0x40
+	end2
+	
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ BS Electric Terrain Status Prevent
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.global BS_ELECTRIC_TERRAIN_PREVENT
+BS_ELECTRIC_TERRAIN_PREVENT:
+	pause_cmd 0x20
+	printstring 0x24E
+	waitmessage 0x40
+	end2
+	
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ telekinesis end
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

@@ -2130,6 +2130,7 @@ PUT_TARGET_TO_SLEEP:
 	jumpifstatus 0x0 0x7 0x82D8AB0 @already asleep
 	jumpifcannotsleep CANT_BECOME_ASLEEP_BS @uproar, abiliy
 	jumpifstatus 0x0 0xFF MOVE_FAILED
+	callasm_cmd 166
 	accuracycheck MOVE_MISSED 0x0
 	jumpifhalverset 0x0 0x20 0x82DAD01
 	attackanimation
@@ -2137,7 +2138,7 @@ PUT_TARGET_TO_SLEEP:
 	seteffect1 MOVEEFFECT_SLP
 	seteffectprimary
 	goto_cmd ENDTURN
-	
+
 CANT_BECOME_ASLEEP_BS:
 	pause_cmd 32
 	printfromtable PUT_TARGET_TO_SLEEP_MSGS
@@ -2161,6 +2162,7 @@ CONFUSE_TARGET:
 CONFUSE_TARGET_TRY:
 	jumpifsecondarystatus bank_target STATUS2_CONFUSION ALREADYCONFUSED
 	jumpifability bank_target ABILITY_OWN_TEMPO CANT_CONFUSE_DUETOABILITY
+	callasm_cmd 167
 	attackanimation
 	waitanimation
 	seteffect1 MOVEEFFECT_CONFUSE

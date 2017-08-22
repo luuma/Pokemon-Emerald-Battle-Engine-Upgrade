@@ -2732,6 +2732,8 @@ u8 cant_become_confused(u8 bank)
         return 4;
     if (side_affecting_halfword[get_bank_side(bank)].safeguard_on && !(hitmarker & HITMAKRER_IGNORE_SAFEGUARD))
         return 5;
+    if (new_battlestruct->field_affecting.misty_terrain && get_airborne_state(bank, 1, 1) <= 2)
+        return 8;
     return 0;
 }
 

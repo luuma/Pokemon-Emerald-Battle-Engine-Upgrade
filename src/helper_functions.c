@@ -459,6 +459,36 @@ void checkifcanconfuse_or_changestats(void)
         battlescripts_curr_instruction = (void*)(read_word(battlescripts_curr_instruction));
 }
 
+void terrain_sleep_protection(void)
+{
+    switch (cant_fall_asleep(bank_target, 0))
+    {
+
+    case 8: //misty terrain
+        battlescripts_curr_instruction = BS_MISTY_TERRAIN_PREVENT;
+        break;
+    case 9: //electric terrain
+        battlescripts_curr_instruction = BS_ELECTRIC_TERRAIN_PREVENT;
+        break;
+
+    }
+}
+
+
+
+void terrain_confuse_protection(void)
+{
+    switch (cant_become_confused(bank_target))
+    {
+    case 5: //safeguard
+        battlescripts_curr_instruction = (void*) 0x82DAD01;
+        break;
+    case 8: //misty terrain
+        battlescripts_curr_instruction = BS_MISTY_TERRAIN_PREVENT;
+        break;
+    }
+}
+
 void jumpifcantpoison(void)
 {
     switch (cant_poison(bank_attacker, bank_target, 0))
@@ -485,6 +515,10 @@ void jumpifcantpoison(void)
     case 5: //safeguard
         battlescripts_curr_instruction = (void*) 0x82DAD01;
         break;
+    case 8: //misty terrain
+        battlescripts_curr_instruction = BS_MISTY_TERRAIN_PREVENT;
+        break;
+
     }
 }
 
@@ -506,6 +540,9 @@ void jumpifcantparalyze(void)
         record_usage_of_ability(bank_target, last_used_ability);
         battlescripts_curr_instruction = (void*) 0x82D9362;
         break;
+    case 8: //misty terrain
+        battlescripts_curr_instruction = BS_MISTY_TERRAIN_PREVENT;
+        break;
     }
 }
 
@@ -521,6 +558,9 @@ void jumpifcantburn(void)
         break;
     case 3:
         battlescripts_curr_instruction = (void*) 0x82D9F2E;
+        break;
+    case 8: //misty terrain
+        battlescripts_curr_instruction = BS_MISTY_TERRAIN_PREVENT;
         break;
     }
 }
@@ -2977,7 +3017,7 @@ const command callasm_table[] = {&ability_switchin_effect /*0*/, &jump_if_forces
 &shiftgear_checkifworks /*147*/, &shiftgear_orr_if_multiple /*148*/, &dont_stat_if_multiple /*149*/, &jumpifalloppositepokemonbehindsubstitute /*150*/,
 &triattackrand /*151*/, &statustoeffect2 /*152*/, &multiplestats_prepare_custom /*153*/, &do_multiple_stats_custom /*154*/, &jumpifnotarg1type /*155*/,
 &set_stats_to_play /*156*/, &receiver_effect /*157*/, &bugbite_get_berry_effect /*158*/, &prepare_switchbank_data /*159*/, &ash_greninja_check /*160*/,
-&zygarde_message_based_on_side/*161*/, &hp_stat_form_change /*162*/, &revert_mega /*163*/, &instruct_canceler /*164*/, &set_instruct /*165*/};
+&zygarde_message_based_on_side/*161*/, &hp_stat_form_change /*162*/, &revert_mega /*163*/, &instruct_canceler /*164*/, &set_instruct /*165*/, &terrain_sleep_protection/*166*/, &terrain_confuse_protection/*167*/};
 
 void atk83_callasm(void)
 {
