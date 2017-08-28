@@ -297,7 +297,8 @@ void damagecalc2(void)
     case MOVE_NIGHT_SHADE:
         damage = battle_participants[bank_attacker].level;
         break;
-    case MOVE_SUPER_FANG:
+   case MOVE_NATURES_MADNESS:    
+   case MOVE_SUPER_FANG:
         damage = battle_participants[bank_target].current_hp / 2;
         break;
     case MOVE_FINAL_GAMBIT:
