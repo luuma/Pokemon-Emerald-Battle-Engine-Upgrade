@@ -257,7 +257,7 @@ void moxie_stat_raise(void)
     }
 }
 
-void grassyterrainn_heal(void)
+void grassyterrain_heal(void)
 {
     void* BS_instr = (void*)(read_word(battlescripts_curr_instruction));
     for (u8 i = 0; i < no_of_all_banks; i++)
