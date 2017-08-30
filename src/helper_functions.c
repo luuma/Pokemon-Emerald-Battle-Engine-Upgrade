@@ -262,7 +262,7 @@ void grassyterrainn_heal(void)
     void* BS_instr = (void*)(read_word(battlescripts_curr_instruction));
     for (u8 i = 0; i < no_of_all_banks; i++)
     {
-        if (!new_battlestruct->bank_affecting[i].grassyterrain_heal && GROUNDED(i) && !FULL_HP(i) && !SEMI_INVULNERABLE(i))
+        if (!new_battlestruct->bank_affecting[i].grassyterrain_heal && GROUNDED(i) && !FULL_HP(i) && battle_participants[i].current_hp && !SEMI_INVULNERABLE(i))
         {
             new_battlestruct->bank_affecting[i].grassyterrain_heal = 1;
             bs_push(battlescripts_curr_instruction - 3, BS_instr);
